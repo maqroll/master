@@ -32,22 +32,6 @@ func muestras(r http.ResponseWriter, req *http.Request) {
     log.Printf("%d,%d",start,stop)
     respuesta := serie.Fetch(int64(start),int64(stop))
 
-/*
-    var resultado string = "{"
-
-    for i,value := range respuesta {
-        if value.Seconds != 0 {
-            resultado = resultado + strconv.FormatFloat(float64(value.Value),'f',2,32)
-            if i != len(respuesta)-1 {
-                resultado = resultado + ","
-            }
-        }
-    }
-
-    resultado = resultado + "}"
-
-    r.Write([]byte(resultado))
-    */
     b,_ := json.Marshal(respuesta)
     r.Header().Add("Access-Control-Allow-Origin","*")
     r.Write(b)
