@@ -13,3 +13,6 @@ My [rant](http://users.softlab.ntua.gr/~ttsiod/gnuplotStreaming.html) at stream 
 * _chording.ahk_. 
 Basic(cut,copy & paste) [mouse chording](http://acme.cat-v.org/mouse) for autohotkey (Thanks Fran!!).
 
+* _jsamp_. 
+My patch for [jsamp](http://code.google.com/p/jsamp/),a sampling cpu profiler for java: you can filter by thread and generate dumps like [Google cpu profiler](http://goog-perftools.sourceforge.net/doc/cpu_profiler.html) does.
+
