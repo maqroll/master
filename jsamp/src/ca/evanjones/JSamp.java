@@ -31,13 +31,27 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /** A minimal pure Java sampling profiler. */
 public class JSamp implements Runnable {
 	public JSamp(int intersampleMillis, String outputPath) {
+        this(intersampleMillis,outputPath,null);
+	}
+
+    public JSamp(int intersampleMillis, String outputPath, String threadName) {
 		this.intersampleMillis = intersampleMillis;
 		this.outputPath = outputPath;
+        this.threadName = threadName;
+    }
+
+	public void sampleWithThread(Thread t) {
+        Map<Thread, StackTraceElement[]> stackTraces = Thread.getAllStackTraces();
+        StackTraceElement[] traza = stackTraces.get(t);
+        stackTraces.clear();
+        stackTraces.put(t,traza);
+		samples.add(stackTraces);
 	}
 
 	public void sample() {
@@ -104,18 +118,47 @@ public class JSamp implements Runnable {
 		if (System.getProperties().containsKey("nojsampler") && !System.getProperty("nojsampler").equals("${nojsampler}"))
 			return;
 
+        Thread filter = null;
+        if (threadName != null) {
+            Iterator<Thread> allThreads = Thread.getAllStackTraces().keySet().iterator();
+            while(allThreads.hasNext()) {
+                Thread t = allThreads.next();
+               if (t.getName().equals(threadName)) {
+                   filter = t;
+                   break;
+               }
+            }
+           if (filter == null) {
+               throw new RuntimeException("No thread named " + threadName + " in JVM.");
+           } 
+        }
+
 		assert Thread.currentThread().getThreadGroup().getParent() == null;
 		System.out.println("sampling every " + intersampleMillis);
 
 		long start = System.currentTimeMillis();
-		while (!doStop.get()) {
-			sample();
-			try {
-				Thread.sleep(intersampleMillis);
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-		}
+        
+        if(filter != null) {
+            while (!doStop.get()) {
+                sampleWithThread(filter);
+                try {
+                    Thread.sleep(intersampleMillis);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        else {
+            while (!doStop.get()) {
+                sample();
+                try {
+                    Thread.sleep(intersampleMillis);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
 		long end = System.currentTimeMillis();
 
 		System.out.println(samples.size() + " samples; real rate = " + ((end - start) / samples.size()));
@@ -138,8 +181,9 @@ public class JSamp implements Runnable {
 		final int interval = Integer.parseInt(args[0]);
 		final int port     = Integer.parseInt(args[1]);
 		final String outputPath = args[2];
+        final String threadName = args[3]; //en blanco en caso de que no se quiera filtrar
 
-		final JSamp jsampler = new JSamp(interval, outputPath);
+		final JSamp jsampler = threadName.isEmpty() ? new JSamp(interval, outputPath) : new JSamp(interval, outputPath, threadName);
 
 		// start jsampler in its own thread
 		new Thread(jsampler, "JSamp").start();
@@ -159,6 +203,7 @@ public class JSamp implements Runnable {
 
 	int intersampleMillis;
 	String outputPath;
+    String threadName = null;
 	AtomicBoolean doStop = new AtomicBoolean(false);
 	private final Deque<Map<Thread, StackTraceElement[]>> samples = new ArrayDeque<Map<Thread, StackTraceElement[]>>();
 }

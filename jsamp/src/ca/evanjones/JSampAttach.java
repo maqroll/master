@@ -55,8 +55,8 @@ public class JSampAttach {
     }
 
     public static void main(String[] args) {
-        if (args.length != 4) {
-            System.err.println("Usage: JSampAttach <JVM pid> <interval> <port> <output file>");
+        if (args.length != 4 && args.length != 5) {
+            System.err.println("Usage: JSampAttach <JVM pid> <interval> <port> <output file> [thread name]");
             System.exit(1);
         }
 
@@ -89,6 +89,7 @@ public class JSampAttach {
         String interval = args[1];
         String port = args[2];
         String output = args[3];
+        String threadName = args.length==5? args[4] : "";
         try {
             // Test if we can write to the file by opening it for writing, then deleting it
             FileOutputStream out = new FileOutputStream(output);
@@ -115,7 +116,7 @@ public class JSampAttach {
         }
 
         try {
-            vm.loadAgent(jarPath.getAbsolutePath(), interval + ";" + port + ";" + output);
+            vm.loadAgent(jarPath.getAbsolutePath(), interval + ";" + port + ";" + output + ";" + threadName);
         } catch (com.sun.tools.attach.AgentLoadException e) {
             throw new RuntimeException(e);
         } catch (com.sun.tools.attach.AgentInitializationException e) {

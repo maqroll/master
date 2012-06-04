@@ -35,6 +35,8 @@ public class RunWithToolsJar {
     private static final String MAIN_CLASS = "ca.evanjones.JSampAttach";
     public static void main(String[] args) throws Exception {
         String javaHome = System.getProperty("java.home");
+        System.out.println(javaHome);
+        System.out.println("---------------------");
         String toolsJarURL = "file:" + javaHome + "/../lib/tools.jar";
 
         // Make addURL public
