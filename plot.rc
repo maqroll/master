@@ -1,0 +1,36 @@
+#!/usr/bin/rc9
+
+fn lshift { lshift=$*; *=$$1; shift $lshift(2); $lshift(1)=$* }
+
+DISPLAY=localhost:0.0
+
+DEPTH=5
+GEOMETRY=712x584+0+0
+TITLES=(uno dos tres)
+ITEMS=(1 1 1)
+
+while(! ~ 0 $#TITLES $#ITEMS){
+     awk 'BEGIN{ count = 0;\
+        print "set terminal x11 title '''^$TITLES(1)^''' noraise"; \
+        print "set xtics 1"; \
+        print "set ytics"; \
+        print "set style data linespoints"; \
+        print "set grid"; \
+        print "set autoscale"; }\
+        {count = count+1; \
+        buffer[count]=$'^$ITEMS(1)^'; \
+        if (count > '$DEPTH') {\
+            delete buffer[count-'$DEPTH']; \
+            print "set xrange["count-'$DEPTH'+1":"count+1"]" \
+        } else {   \
+            print "set xrange[1:"count+1"]"; \
+        } \
+        print "plot ''-'' title '''^$TITLES(1)^''' "; \
+        for (i in buffer) \
+            print i,buffer[i];\
+        print "e"; fflush();} \
+        END{}' | gnuplot -geometry $GEOMETRY >[2]/dev/null &
+
+        lshift ITEMS 1;
+        lshift TITLES 1;
+}
