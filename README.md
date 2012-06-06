@@ -16,6 +16,6 @@ Basic(cut,copy & paste) [mouse chording](http://acme.cat-v.org/mouse) for autoho
 * _jsamp_. 
 My patch for [jsamp](http://code.google.com/p/jsamp/),a sampling cpu profiler for java: you can filter by thread and generate dumps like [Google cpu profiler](http://goog-perftools.sourceforge.net/doc/cpu_profiler.html) does.
 
-* _monitor__low__heap.rc_. 
+* *monitor_low_heap.rc*. 
 A very cheap low heap monitoring system for Websphere (with verbosegc).
 
