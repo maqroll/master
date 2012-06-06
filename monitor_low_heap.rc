@@ -1,0 +1,3 @@
+#!/usr/bin/rc9
+
+tail -F /server/log/native_stderr.log | grep --line-buffered -A 1 '</gc>' |sed -nu -e 's/.*percent="\([0-9]*\)".*/\1/p'|awk '{if ($1<70) system("net send F1030 "$1"@ecdcorejees1");}' &
