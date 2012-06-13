@@ -1,0 +1,38 @@
+#plan9 makefile
+
+JAVA='java'
+JAVA='/n/d/Java/bin/java'
+JAVA='/n/d/jre6/bin/java'
+JAVA='/n/d/jdk1.7.0_03/bin/java'
+
+ALL:V: minimal.dll 
+
+clean:
+    rm -f *.dll *.o *.exe *.so
+
+minimal.dll: minimal.c
+    #mingw
+    #gcc -D_JNI_IMPLEMENTATION_ -g -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at -Wall -Wno-unused -Wno-parentheses -shared minimal.c -o minimal.dll
+    #cygwin
+    #gcc-3  -mno-cygwin "-D__int64=long long" -D_JNI_IMPLEMENTATION_ -g -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at,--add-stdcall-alias -W -Wall -Wno-unused -Wno-parentheses -shared  minimal.c -o minimal.dll
+    
+sigprof.dll: sigprof.c
+    #mingw
+    #gcc -D_JNI_IMPLEMENTATION_ -g -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at -Wall -Wno-unused -Wno-parentheses -shared sigprof.c -o sigprof.dll
+    #cygwin
+    #gcc-3  -mno-cygwin "-D__int64=long long" -D_JNI_IMPLEMENTATION_ -g -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at,--add-stdcall-alias -W -Wall -Wno-unused -Wno-parentheses -shared -static-libgcc  sigprof.c -o sigprof.dll
+    
+sigprof.so: sigprof.c
+    gcc-3.3 -g -shared sigprof.c -o sigprof.so
+
+launcher.exe: launcher.o config.h config.o    
+    gcc-3  -g -static launcher.o config.o -o launcher.exe
+
+launcher.o: launcher.c
+    gcc-3  "-D__int64=long long" -D_JNI_IMPLEMENTATION_ -c -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at,--add-stdcall-alias -W -Wall -Wno-unused -Wno-parentheses -static-libgcc  launcher.c -o launcher.o
+
+config.o: config.c
+    gcc-3  "-D__int64=long long" -D_JNI_IMPLEMENTATION_ -c -fno-strict-aliasing -fno-omit-frame-pointer -Wl,--kill-at,--add-stdcall-alias -W -Wall -Wno-unused -Wno-parentheses -static-libgcc  config.c -o config.o
+
+test:
+    ${JAVA} -agentlib:minimal Test 
