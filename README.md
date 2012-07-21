@@ -25,3 +25,9 @@ Minimal sigprof cpu sampler for java implemented as a jvmti agent.
 * *go/src/stress.go*. 
 I use both jmeter and grinder for stress testing but sometimes I use my own.
 
+* *the method*.
+    - [Captura de requisitos](http://maqroll.github.com/pruebas/method/wf_captura_requisitos.svg)
+    - [Análisis](http://maqroll.github.com/pruebas/method/wf_analisis.svg)
+    - [Arquitectura](http://maqroll.github.com/pruebas/method/wf_arquitectura.svg)
+    - [Diseño](http://maqroll.github.com/pruebas/method/wf_diseño.svg)
+    - [Construcción](http://maqroll.github.com/pruebas/method/wf_construccion.svg)
