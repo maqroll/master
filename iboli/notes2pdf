@@ -34,7 +34,6 @@ fn strip_extension {
 }
 
 for(file in $1'_'*'.pegvf') {
-    strip_extension file file_wo_ext
     $CONVERTER $file
 }
 
