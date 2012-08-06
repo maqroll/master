@@ -8,8 +8,7 @@
 # se genera el archivo reunion.pdf con dos páginas.
 
 # Utiliza una versión modificada de pegasus-mobile-notetaker v0.4.1
-
-disponible en http://sourceforge.net/projects/pen-driver/files/
+#disponible en http://sourceforge.net/projects/pen-driver/files/
 
 CONVERTER=/cygdrive/d/pruebas_iboli/pegasus-mobile-notetaker-0.4.1/python/PegVF-to-SVG
 INKSCAPE=/cygdrive/d/InkscapePortable/App/Inkscape/inkscape.exe 
@@ -47,34 +46,6 @@ for(file in $1'_'*'.svg') {
 
 lista=`{ls $1'_'*'.pdf'}
 
-switch($#lista) {
-    case 1
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1)
-        rm $lista(1)
-    case 2
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2)
-        rm $lista(1) $lista(2)
-    case 3
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3)
-        rm $lista(1) $lista(2) $lista(3)
-    case 4
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4)
-        rm $lista(1) $lista(2) $lista(3) $lista(4)
-    case 5
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4) $lista(5)
-        rm $lista(1) $lista(2) $lista(3) $lista(4) $lista(5)
-    case 6
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6)
-        rm $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6)
-    case 7
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) 
-        rm $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) 
-    case 8
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) $lista(8) 
-        rm $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) $lista(8) 
-    case 6
-        gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) $lista(8) $lista(9)
-        rm $lista(1) $lista(2) $lista(3) $lista(4) $lista(5) $lista(6) $lista(7) $lista(8) $lista(9)
-    case *
-        echo 'ERROR: número de páginas no contemplado'
-}
+gs -dNOPAUSE '-sDEVICE=pdfwrite' '-sOUTPUTFILE='$1'.pdf' -dBATCH $lista
+rm $lista
+
