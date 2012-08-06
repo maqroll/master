@@ -1,0 +1,96 @@
+diff -urb pegasus-mobile-notetaker-0.4.1/python/pegasus_notetaker/PegVF/parser.py pegasus-mobile-notetaker-0.4.1.modificado/python/pegasus_notetaker/PegVF/parser.py
+--- pegasus-mobile-notetaker-0.4.1/python/pegasus_notetaker/PegVF/parser.py	2010-08-24 00:09:41.000000000 +0200
++++ pegasus-mobile-notetaker-0.4.1.modificado/python/pegasus_notetaker/PegVF/parser.py	2012-07-28 12:16:18.761356700 +0200
+@@ -250,9 +250,10 @@
+ 	return name, strokes
+ 	
+ def parse(f):
+-	assert(f.read(14) == "PGSSDATA\0\0\0\3\0\n")
++	assert(f.read(14) == "PGSSDATA\0\0\0\3\0\x13")
+ 	# \4\3 is 772.
+-	assert(f.read(34) == "\4\3MobileDigitalScribe\0\0\0\0\0\0\0\0\0\0\0\0\0")
++	#assert(f.read(34) == "\4\3MobileDigitalScribe\0\0\0\0\0\0\0\0\0\0\0\0\0")
++	assert(f.read(34) == "\0\3Easy note taker\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0")
+ 	assert(f.read(10) == "PGSSCONT\1\0")
+ 	# could already be a count.
+ 	# from here, there are really two different file formats: a PegFolder or a PegVF.
+diff -urb pegasus-mobile-notetaker-0.4.1/python/PegVF-to-SVG pegasus-mobile-notetaker-0.4.1.modificado/python/PegVF-to-SVG
+--- pegasus-mobile-notetaker-0.4.1/python/PegVF-to-SVG	2010-08-24 00:18:26.000000000 +0200
++++ pegasus-mobile-notetaker-0.4.1.modificado/python/PegVF-to-SVG	2012-07-29 08:48:02.113962900 +0200
+@@ -1,28 +1,47 @@
+-#!/usr/bin/env python2
++#!/usr/bin/python
+ # I, Danny Milosavljevic, hereby release this file into the public domain.
+ 
+ import to_SVG
+ import sys
+ import os
+ 
++def toHex(s):
++    lst = []
++    for ch in s:
++        hv = hex(ord(ch)).replace('0x', '')
++        if len(hv) == 1:
++            hv = '0'+hv
++        lst.append(hv)
++    
++    return reduce(lambda x,y:x+y, lst)
++
+ if len(sys.argv) < 2:
+ 	print >>sys.stderr, "Usage: %s <file>" % sys.argv[0]
+ 	sys.exit(1)
+ input_file_name = sys.argv[1]
+ input_file = file(input_file_name, "rb")
+-if input_file.read(14) == "PGSSDATA\0\0\0\3\0\n":
++cabecera = input_file.read(14)
++if cabecera == "PGSSDATA\0\0\0\3\0\x13":
+ 	from pegasus_notetaker.PegVF import parser
+ else:
+ 	from pegasus_notetaker.PegXY import parser
+ input_file.seek(0) # make sure seeking works.
+ 
++root,ext = os.path.splitext(input_file_name)
++
++i = 1
+ for name, strokes in parser.parse(input_file):
+ 	name = name.replace("/", "_")
+ 	if name.startswith("."):
+ 		name = "_" + name
++	if i==1:
++		name = root + ".svg"
++	else:    
++		name = root + "_" + str(i) + ".svg"
+ 	temp_name = "%s.temp" % name
+ 	output_file = open(temp_name, "w")
+ 	to_SVG.to_SVG(name, strokes, output_file)
+ 	output_file.close()
+ 	os.rename(temp_name, name)
++	i = i+1
+ 
+diff -urb pegasus-mobile-notetaker-0.4.1/python/to_SVG.py pegasus-mobile-notetaker-0.4.1.modificado/python/to_SVG.py
+--- pegasus-mobile-notetaker-0.4.1/python/to_SVG.py	2010-08-24 00:12:36.000000000 +0200
++++ pegasus-mobile-notetaker-0.4.1.modificado/python/to_SVG.py	2012-07-28 14:15:54.310438100 +0200
+@@ -6,12 +6,13 @@
+ 	view_box = [None, None, None, None]
+ 
+ 	for stroke in strokes:
++        	if len(stroke.points) > 1:
+ 		for point in stroke.points:
+ 			X = point.X
+ 			Y = point.Y
+ 			if (view_box[0] is None) or X < view_box[0]:
+ 				view_box[0] = X
+-			if (view_box[1] is None) or Y < view_box[0]:
++				if (view_box[1] is None) or Y < view_box[1]:
+ 				view_box[1] = Y
+ 			if (view_box[2] is None) or X > view_box[2]:
+ 				view_box[2] = X
+@@ -22,7 +23,7 @@
+ 	view_box[3] = view_box[3] - view_box[1]
+ 
+ 	print >>f, '<?xml version="1.0"?>'
+-	print >>f, '<svg width="21cm" height="30cm" viewBox="%s" xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny">' % " ".join(map(str, view_box))
++	print >>f, '<svg width="21cm" height="30cm" viewBox="%s" xmlns="http://www.w3.org/2000/svg"  preserveAspectRatio="xMinYMin" version="1.2" baseProfile="tiny">' % " ".join(map(str, view_box))
+ 	print >>f, '<title>%s</title>' % title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+ 	for stroke in strokes:
+ 		command = " ".join([("L %d %d" % (point.X, point.Y)) for point in stroke.points])
