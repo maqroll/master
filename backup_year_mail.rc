@@ -1,0 +1,50 @@
+
+#Backup your mail from Outlook Web Access (OWA).
+YEAR=$1
+NEXT_YEAR=`{expr $YEAR + 1}
+
+USER=
+PASSWORD=
+
+# davmail (http://davmail.sourceforge.net/) pointing to your OWA server.
+IMAP_SERVER=localhost
+IMAP_PORT=1143
+
+#http://archivemail.sourceforge.net/
+./archivemail --include-flagged -D $NEXT_YEAR-01-01 -p $YEAR'_' imap://${USER}:${PASSWORD}@${IMAP_SERVER}:${IMAP_PORT}/*
+
+#with a minor patch
+#1356c1356,1360
+#<                 message_list = response[0].split()
+#---
+#>                 print response
+#>                 #message_list = response[0].split()
+#>                 message_list = response
+#>                 if response[0] == '':
+#>                     message_list = []
+#1363,1367c1367,1371
+#<         if total_msg_count > 0 and not options.quiet:
+#<             vprint("fetching size of messages...")
+#<             result, response = imap_srv.fetch('1:*', '(RFC822.SIZE)')
+#<             if result != 'OK': unexpected_error("Failed to fetch message sizes; "
+#<                 "server says '%s'" % response[0])
+#---
+#>         #if total_msg_count > 0 and not options.quiet:
+#>             #vprint("fetching size of messages...")
+#>             #result, response = imap_srv.fetch('1:*', '(RFC822.SIZE)')
+#>             #if result != 'OK': unexpected_error("Failed to fetch message sizes; "
+#>                 #"server says '%s'" % response[0])
+#1371,1376c1375,1380
+#<             for x in response:
+#<                 m = imapsize_re.match(x)
+#<                 msn, msg_size = m.group('msn'), int(m.group('size'))
+#<                 stats.another_message(msg_size)
+#<                 if msn in message_list:
+#<                     stats.another_archived(msg_size)
+#---
+#>             #for x in response:
+#>                 #m = imapsize_re.match(x)
+#>                 #msn, msg_size = m.group('msn'), int(m.group('size'))
+#>                 #stats.another_message(msg_size)
+#>                 #if msn in message_list:
+#>                     #stats.another_archived(msg_size)
