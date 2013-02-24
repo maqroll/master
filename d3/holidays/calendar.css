@@ -13,3 +13,9 @@
   stroke: #000;
   stroke-width: 2px;
 }
+
+.today {
+  fill: none;
+  stroke: #321;
+  stroke-width: 1px;
+}
