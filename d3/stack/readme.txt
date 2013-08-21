@@ -1,0 +1,1 @@
+A little experiment in stack traces visualization.
