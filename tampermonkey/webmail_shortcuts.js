@@ -7,7 +7,21 @@
 // @require       http://www.openjs.com/scripts/events/keyboard_shortcuts/shortcut.js
 // ==/UserScript==
 
+
+function addGlobalStyle(css) {
+    var head, style;
+    head = document.getElementsByTagName('head')[0];
+    if (!head) { return; }
+    style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = css;
+    head.appendChild(style);
+}
+
+
 $(document).ready(function() {  
+    addGlobalStyle('input[type="checkbox"]:focus { outline:3px solid #000000; }');
+
     // Marcar como no-leido
     shortcut.add("Ctrl+Alt+U",function() {
         $("#lnkHdrmarkunread").click();
