@@ -7,6 +7,9 @@ A bare minimal server backend for [cubism.js](http://square.github.com/cubism/).
 * _go/src/serieTemporal_. 
 A minimal time series repository (Go package).
 
+* _go/src/checkUnusedProperties.go_.
+Lookup unused properties in pom files (simple and minimal but works most of the time).
+
 * _plot.rc_. 
 My [rant](http://users.softlab.ntua.gr/~ttsiod/gnuplotStreaming.html) at stream visualization with gnuplot. 
 
