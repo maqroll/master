@@ -39,7 +39,7 @@ var IssueTable = React.createClass({
         return (
             <div onClick={this.handleClick}>
             <ReloadButton state={this.state.state}></ReloadButton>
-          <div className="table-responsive">
+          <div className="table-responsive" style={this.state.data.length == 0 ? {display:'none'} : {}}>
             <table className="table table-striped">
               <thead>
                 <tr>
