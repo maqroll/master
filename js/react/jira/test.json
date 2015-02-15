@@ -1,0 +1,32 @@
+[
+  {
+    "email": "blake@dummy",
+    "tasks": [
+      {
+        "id": "INDITEXCS-3456",
+        "remaining": "2000",
+        "endDate": "2015/02/03"
+      }
+    ]
+  },
+  {
+    "email": "mortimer@dummy",
+    "tasks": [
+      {
+        "id": "INDITEXCS-3456",
+        "remaining": "2000",
+        "endDate": "2015/02/03"
+      },
+      {
+        "id": "INDITEXCS-3457",
+        "remaining": "2000",
+        "endDate": "2015/02/03"
+      },
+      {
+        "id": "INDITEXCS-3458",
+        "remaining": "2000",
+        "endDate": "2015/02/03"
+      }
+    ]
+  }
+]
