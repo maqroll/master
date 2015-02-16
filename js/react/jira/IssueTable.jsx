@@ -1,4 +1,8 @@
 /** @jsx React.DOM */ 
+import ReloadButton from 'reloadButton';
+import React from 'react';
+import $ from 'jquery';
+
 
 var IssueTable = React.createClass({
     getInitialState: function(){
@@ -58,3 +62,5 @@ var IssueTable = React.createClass({
             );
     }
 });
+
+export default IssueTable;

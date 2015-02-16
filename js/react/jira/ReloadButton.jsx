@@ -1,4 +1,6 @@
 /** @jsx React.DOM */
+import Ladda from 'ladda';
+import React from 'react';
 
 var ReloadButton = React.createClass({
 
@@ -34,3 +36,5 @@ var ReloadButton = React.createClass({
             );
     }
 });
+
+export default ReloadButton;

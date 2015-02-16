@@ -13,36 +13,16 @@
   <link href="lib/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="lib/ladda/ladda-themeless.min.css">
   <script type="text/javascript" src="lib/systemjs/system.js"></script>
-  <script type="text/javascript" src="lib/react/react.js"></script>
-  <script type="text/javascript" src="lib/react/JSXTransformer.js"></script>
-  <script type="text/javascript" src="lib/jquery/jquery.js"></script>
-  <script type="text/javascript" src="lib/ladda/spin.min.js"></script>
-  <script type="text/javascript" src="lib/ladda/ladda.min.js"></script>
-  <script type="text/javascript">
-    var STATE = {
-      LOADING: 0, 
-      LOADED: 1, 
-      ERROR: 2
-    };
-
-  </script>
-  <script type="text/jsx" src="ReloadButton.jsx"></script>
-  <script type="text/jsx" src="IssueTable.jsx"></script>
-  <script type="text/jsx">
-    /** @jsx React.DOM */
-    //<![CDATA[
-
-    React.render(
-      <IssueTable></IssueTable>,
-      document.getElementById('issues')
-    );
-    //]]>
+  <script type="text/javascript" src="config.js"></script>
+<script>
+    System.import('main');
 </script>
 </head>
 
 <body>
 
   <div class="container-fluid">
+    <div class="row"/>
     <div class="row">
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main" id="issues"></div>
     </div>
