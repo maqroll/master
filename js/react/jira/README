@@ -1,0 +1,2 @@
+# main.html: modules unpacked
+# packed.html: modules packed in bundle.js using build.js and systemjs-builder (node build.js)
