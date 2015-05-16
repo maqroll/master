@@ -1,12 +1,13 @@
 // ==UserScript==
-// @name Shortcuts for OWA
+// @name OWA shortcuts
 // @namespace http://www.example.com/jQueryPlay/
-// @description Shortcuts for OWA
+// @description OWA shorcuts
 // @include https://webmail.indra.es/*
 // @require https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js
 // @require http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js
 // @require http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js
 // @require http://www.openjs.com/scripts/events/keyboard_shortcuts/shortcut.js
+// @require https://raw.githubusercontent.com/cfinke/Typo.js/master/typo/typo.js
 // @resource awesome http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css
 // @resource customFont https://fonts.googleapis.com/css?family=Cardo:400,400italic,700&subset=latin,latin-ext
 // ==/UserScript==
@@ -42,14 +43,15 @@ function addStyleSheet(style){
     return elementStyle;
 }
 
-var editor;
+var aceEditor;
 
 function updateTextArea() {
-    $('textarea[name=txtbdy]').val(editor.getSession().getValue());
+    $('textarea[name=txtbdy]').val(aceEditor.getSession().getValue());
+    $('#printArea').text(aceEditor.getSession().getValue());
 }  
 
 $(document).ready(function() {
-    debugger;
+    //debugger;
     addGlobalStyle('input[type="checkbox"]:focus { outline:3px solid #000000; }');
     var customFont = GM_getResourceText("customFont");
     GM_addStyle (customFont);
@@ -60,7 +62,8 @@ $(document).ready(function() {
     addGlobalStyle("table.lvw{font-style:italic; font-size:235%;}");
     addGlobalStyle(".bdy{font:normal 100% Cardo;}");
     addGlobalStyle("TD,TH{font-size: 75%}");
-    addGlobalStyle("@media print{.no-print, .no-print * {display: none !important;}}");
+    addGlobalStyle("@media print{.no-print, .no-print * {display: none !important; } #luis {display: none !important; } #printArea{display:block !important;} }");
+    //addGlobalStyle("@media screen { textarea[name=txtbdy] {display: none; }}");
     addGlobalStyle("table.lvw tr.pick {background-color: #99d8c9;}");
     
     addStyleSheet('@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css";'); 
@@ -77,7 +80,8 @@ $(document).ready(function() {
         idSENT:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQDNe5IO7ac7TqmJafz1a9qcAAAADglEAAAB",
         idTODO:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQA05cOIyrmAQJ7byiEdX6rVAAADcBFDAAAB",
         idWAITING:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQD4Z4%2fQ82g0Sp3OynI5kW%2bAAAAClKVlAAAB",
-        idHOWTO:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQD4Z4%2fQ82g0Sp3OynI5kW%2bAAAAClKWJAAAB"
+        idHOWTO:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQD4Z4%2fQ82g0Sp3OynI5kW%2bAAAAClKWJAAAB",
+        idARCHIVE:"LgAAAACp9VNvDBbBQZ1o6eQ6yCd5AQC1y7tKBvUzQ4GUmRDqzbG1AAAAuS%2f%2bAAAB"
     };
     
     
@@ -136,7 +140,8 @@ $(document).ready(function() {
         "a[title='HowTo']",
         "a[title='ToDo']",
         "a[title='Waiting']",
-        "a[title='Calendario']"
+        "a[title='Calendario']",
+        "a[title='z']"
     ];
     
     _.each(empty,function(el){
@@ -151,6 +156,7 @@ $(document).ready(function() {
     $("<i class='fa fa-list'></i>").appendTo("a[title='ToDo']");
     $("<i class='fa fa-pause'></i>").appendTo("a[title='Waiting']");
     $("<i class='fa fa-calendar'></i>").appendTo("a[title='Calendario']");
+    $("<i class='fa fa-archive'></i>").appendTo("a[title='z']");    
     
     
     $("a[title='Elementos eliminados']").closest('tr').insertAfter($("a[title='Elementos enviados']").closest('tr'));
@@ -224,7 +230,7 @@ $(document).ready(function() {
             }
 
             if (actual.length > 0) {
-                $(actual).removeClass('pick');
+				$(actual).removeClass('pick');
             }
             
             $(nodo).addClass('pick');
@@ -242,7 +248,7 @@ $(document).ready(function() {
             }
 
             if (actual.length > 0) {
-                $(actual).removeClass('pick');
+				$(actual).removeClass('pick');
             }
             
             $(nodo).addClass('pick');
@@ -347,7 +353,7 @@ $(document).ready(function() {
                     $(link).click();
                 }
             } else {
-                $(val).click();
+            	$(val).click();
             }
         });
     });
@@ -363,7 +369,7 @@ $(document).ready(function() {
             if (gup('id')) {
                 toFolder = gup('id');
             } else { // estamos en el reply guardado (siempre en la carpeta borradores.
-                toFolder = idDRAFTS;
+                toFolder = folders.idDRAFTS;
             }
         }
         
@@ -495,11 +501,26 @@ value: 'qL5ThzXi6U-Xv_MIMh7IIGGTcGhxitBIsUueTElr4fJm_qCBPeyD8-7RY6ySA9pSSWQHI6zj
     shortcut.add("F8",function() {
         $('#lnkNavCal')[0].click();
     });
+
+    shortcut.add("F9",function() {
+        if (($(':checkbox:checked').length > 0) || (gup('ae') === 'Item')) {
+            moveTo(folders.idARCHIVE);
+        } else {
+            $('a[title="z"]')[0].click();
+        }
+    });
+    
     
     // editor
     $(function () {
         $('textarea[name=txtbdy]').each(function () {
             var textarea = $(this);
+            
+            var printArea = $('<span>', {
+                id: 'printArea',
+                position: 'absolute',
+                'style': "overflow: visible; display: none; unicode-bidi: embed; font-family: monospace; white-space: pre;"
+            }).insertBefore(textarea);
             
             var editDiv = $('<div>', {
                 id: 'luis',
@@ -509,16 +530,26 @@ value: 'qL5ThzXi6U-Xv_MIMh7IIGGTcGhxitBIsUueTElr4fJm_qCBPeyD8-7RY6ySA9pSSWQHI6zj
                 'class': textarea.attr('class')
             }).insertBefore(textarea);
             
-            textarea.css('visibility', 'hidden');
+            textarea.css('display', 'none');
             
-            editor = ace.edit(editDiv[0]);
-            editor.renderer.setShowGutter(true);
-            editor.getSession().setValue(textarea.val());
-            editor.getSession().setUseWrapMode(true);
-            editor.commands.bindKeys({"ctrl-s":null, "ctrl-alt-s":null});
-            editor.on('change', function() {updateTextArea();});
+            editor = "luis"; // This should be the id of your editor element.
+            lang = "es_ES";
+            dicPath = "file:///d|/tools/dictionaries/es_ES/es_ES.dic";
+            affPath = "file:///d|/tools/dictionaries/es_ES/es_ES.aff";
+
+            aceEditor = ace.edit(editDiv[0]);
+            aceEditor.renderer.setShowGutter(true);
+            aceEditor.getSession().setValue(textarea.val());
+            $('#printArea').text(textarea.val());
+            aceEditor.getSession().setUseWrapMode(true);
+            aceEditor.commands.bindKeys({"ctrl-s":null, "ctrl-alt-s":null});
+            aceEditor.on('change', function() {updateTextArea();});
+
+            // ------------------------------------------------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------
             
-            if (editor) {
+            
+            if (aceEditor) {
                 $("#txtto").focus();
             }
         });

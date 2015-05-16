@@ -66,7 +66,7 @@ function searchFrame(name) {                                     // id = the id 
             $('#TaulaLlista td.lPar2',frame.document).removeClass('lPar2');
             var nodo = null;
             var actual = $('#TaulaLlista tbody tr.pick',frame.document);
-            var ultimo = $('#TaulaLlista tbody tr:last',frame.document);
+        	var ultimo = $('#TaulaLlista tbody tr:last',frame.document);
             
             if (actual.length == 0 || actual.prevAll().length == 1) {
                 nodo = ultimo;
@@ -75,7 +75,7 @@ function searchFrame(name) {                                     // id = the id 
             }
 
             if (actual.length > 0) {
-                $(actual).removeClass('pick');
+				$(actual).removeClass('pick');
             }
             
             $(nodo).addClass('pick');
@@ -84,7 +84,7 @@ function searchFrame(name) {                                     // id = the id 
         var frame = searchFrame('mainFrame');
             $('#TaulaLlista td.lPar',frame.document).removeClass('lPar');
             $('#TaulaLlista td.lPar2',frame.document).removeClass('lPar2');
-            var nodo = null;
+			var nodo = null;
             var actual = $('#TaulaLlista tbody tr.pick',frame.document);
             var primero = $('#TaulaLlista tbody tr',frame.document)[0];
             
@@ -95,10 +95,10 @@ function searchFrame(name) {                                     // id = the id 
             }
 
             if (actual.length > 0) {
-                $(actual).removeClass('pick');
+				$(actual).removeClass('pick');
             }
             
             $(nodo).addClass('pick');    
     });
-        
+    	
 });
