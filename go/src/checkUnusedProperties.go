@@ -16,6 +16,13 @@ type Project struct {
 	Modules       ModulesArray    `xml:"modules,omitempty"`
 	Resources     []Resource      `xml:"build>resources>resource,omitempty"`
 	TestResources []Resource      `xml:"build>testResources>testResource,omitempty"`
+	Profiles      []Profile       `xml:"profiles>profile"`
+}
+
+type Profile struct {
+	Properties    PropertiesArray `xml:"properties,omitempty"`
+	Resources     []Resource      `xml:"build>resources>resource,omitempty"`
+	TestResources []Resource      `xml:"build>testResources>testResource,omitempty"`
 }
 
 type Resource struct {
@@ -73,32 +80,44 @@ func isPropertyOnContent(content string, property string) bool {
 	return strings.Contains(content, "${"+property+"}")
 }
 
+func checkPendingPropertiesOnFile(file string, pendingProperties []string, parentPendingProperties []string) ([]string, []string) {
+	resultPending := make([]string, 0)
+	resultParentPending := make([]string, 0)
+
+	b := getFileContents(file)
+	content := string(b)
+
+	for _, property := range pendingProperties {
+		if !isPropertyOnContent(content, property) {
+			resultPending = append(resultPending, property)
+		}
+	}
+
+	for _, property := range parentPendingProperties {
+		if !isPropertyOnContent(content, property) {
+			resultParentPending = append(resultParentPending, property)
+		}
+	}
+
+	return resultPending, resultParentPending
+}
+
 func checkPendingPropertiesOnResource(pendingProperties []string, dir string, resource *Resource, parentPendingProperties []string) ([]string, []string) {
 	resultPending := make([]string, 0)
 	resultParentPending := make([]string, 0)
 
-	for _, includedFile := range resource.Includes {
-		b := getFileContents(filepath.Join(dir, includedFile))
-		content := string(b)
-
-		for _, property := range pendingProperties {
-			if !isPropertyOnContent(content, property) {
-				resultPending = append(resultPending, property)
-			}
-		}
-		pendingProperties = resultPending
-		resultPending = []string{}
-
-		for _, property := range parentPendingProperties {
-			if !isPropertyOnContent(content, property) {
-				resultParentPending = append(resultParentPending, property)
-			}
-		}
-		parentPendingProperties = resultParentPending
-		resultParentPending = []string{}
+	for _, s := range pendingProperties {
+		resultPending = append(resultPending, s)
+	}
+	for _, s := range parentPendingProperties {
+		resultParentPending = append(resultParentPending, s)
 	}
 
-	return pendingProperties, parentPendingProperties
+	for _, includedFile := range resource.Includes {
+		resultPending, resultParentPending = checkPendingPropertiesOnFile(filepath.Join(dir, includedFile), resultPending, resultParentPending)
+	}
+
+	return resultPending, resultParentPending
 }
 
 func processPom(dir string, file string, parentPendingProperties []string) []string {
@@ -128,10 +147,28 @@ func processPom(dir string, file string, parentPendingProperties []string) []str
 		}
 	}
 
+	for _, profile := range project.Profiles {
+		for _, property := range profile.Properties.PropertyList {
+			if !isPropertyOnContent(t, property.XMLName.Local) {
+				pendingProperties = append(pendingProperties, property.XMLName.Local)
+			}
+		}
+	}
+
 	if len(pendingProperties) > 0 || len(result) > 0 {
 		for _, resource := range project.Resources {
 			if resource.Filtering && (len(pendingProperties) > 0 || len(result) > 0) {
 				pendingProperties, result = checkPendingPropertiesOnResource(pendingProperties, filepath.Join(dir, resource.Directory), &resource, result)
+			}
+		}
+	}
+
+	if len(pendingProperties) > 0 || len(result) > 0 {
+		for _, profile := range project.Profiles {
+			for _, resource := range profile.Resources {
+				if resource.Filtering && (len(pendingProperties) > 0 || len(result) > 0) {
+					pendingProperties, result = checkPendingPropertiesOnResource(pendingProperties, filepath.Join(dir, resource.Directory), &resource, result)
+				}
 			}
 		}
 	}
@@ -144,14 +181,29 @@ func processPom(dir string, file string, parentPendingProperties []string) []str
 		}
 	}
 
-	for _, module := range project.Modules.ModulesList {
-		result = processPom(filepath.Join(dir, module.Name), "pom.xml", result)
-
+	if len(pendingProperties) > 0 || len(result) > 0 {
+		for _, profile := range project.Profiles {
+			for _, resource := range profile.TestResources {
+				if resource.Filtering && (len(pendingProperties) > 0 || len(result) > 0) {
+					pendingProperties, result = checkPendingPropertiesOnResource(pendingProperties, filepath.Join(dir, resource.Directory), &resource, result)
+				}
+			}
+		}
 	}
 
-	if len(pendingProperties) > 0 {
+	if len(project.Modules.ModulesList) > 0 {
+		for _, module := range project.Modules.ModulesList {
+			pendingProperties = processPom(filepath.Join(dir, module.Name), "pom.xml", pendingProperties)
+		}
+
 		for _, property := range pendingProperties {
 			fmt.Printf("Property: %s not used in file %s\n", property, filepath.Join(dir, file))
+		}
+	} else {
+		if len(pendingProperties) > 0 {
+			for _, property := range pendingProperties {
+				fmt.Printf("Property: %s not used in file %s\n", property, filepath.Join(dir, file))
+			}
 		}
 	}
 
