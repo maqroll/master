@@ -1,15 +1,6 @@
 * _cubism/cubism.htm_. 
 Test page using [cubism.js](http://square.github.com/cubism/) and SerieTemporalSrv.
 
-* _go/src/SerieTemporalSrv.go_. 
-A bare minimal server backend for [cubism.js](http://square.github.com/cubism/). Uses serieTemporal.
-
-* _go/src/serieTemporal_. 
-A minimal time series repository (Go package).
-
-* _go/src/checkUnusedProperties.go_.
-Lookup unused properties in pom files (simple and minimal but works most of the time).
-
 * _plot.rc_. 
 My [rant](http://users.softlab.ntua.gr/~ttsiod/gnuplotStreaming.html) at stream visualization with gnuplot. 
 
@@ -28,8 +19,8 @@ Backup your mail through OWA.
 * *jvmti*. 
 Minimal sigprof cpu sampler for java implemented as a jvmti agent.
 
-* *go/src/stress.go*. 
-I use both jmeter and grinder for stress testing but sometimes I use my own.
+* *awk*. 
+My awk scripts.
 
 * *the method*.
     - [Captura de requisitos](http://maqroll.github.com/pruebas/method/wf_captura_requisitos.svg)
