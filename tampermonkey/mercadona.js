@@ -50,6 +50,9 @@ function searchFrame(name) {                                     // id = the id 
     shortcut.add("esc", function() {
         var frame = searchFrame('topbusc');
         var input = $('#busc_ref',frame.document);
+        var marca = $('#busc_marca',frame.document);
+        $(input).val('');
+        $(marca).val('');
         $(input).focus();
     });
     shortcut.add("up", function() {
