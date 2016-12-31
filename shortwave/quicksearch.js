@@ -27,8 +27,8 @@ function QS_search() {
     var args = words.join( ' ' );
     if( cmd == 'help' ) {
         QS_listCommands();
-    } else if( typeof QS_cmds[cmd] != 'undefined' ) {
-        var url = QS_cmds[cmd][1].replace( '%s', escape(args) );
+    } else if( typeof QS_cmds[cmd.replace(/^\s+|\s+$/g, '')] != 'undefined' ) {
+        var url = QS_cmds[cmd.replace(/^\s+|\s+$/g, '')][1].replace( '%s', escape(args) );
         if(cmd.substring(0,1)==' ') {
             var w=window.open(url);
             w.focus();
