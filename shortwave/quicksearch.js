@@ -28,7 +28,13 @@ function QS_search() {
     if( cmd == 'help' ) {
         QS_listCommands();
     } else if( typeof QS_cmds[cmd] != 'undefined' ) {
-        window.location.href = QS_cmds[cmd][1].replace( '%s', escape(args) );
+        var url = QS_cmds[cmd][1].replace( '%s', escape(args) );
+        if(cmd.substring(0,1)==' ') {
+            var w=window.open(url);
+            w.focus();
+        } else {
+            window.location.href = url;
+        }
     } else {
         alert( 'The command ' + cmd + ' is not defined!' );
     }
