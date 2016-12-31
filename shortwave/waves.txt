@@ -45,7 +45,7 @@ gs      http://www.google.com/search?q=site:%d%20%s         Search the current s
 map     http://www.google.com/maps?q=%s                     Google Maps
 img     http://www.google.com/images?q=%s                   Google Image Search
 w       http://wikipedia.org/wiki/Special:Search/%s         Wikipedia Search
-a       https://www.amazon.es/s/ref=nb_sb_noss?__mk_es_ES=ÅMÅŽÕÑ&url=search-alias%3Daps&field-keywords=%s Amazon Search
+c       https://www.amazon.es/s/ref=nb_sb_noss?__mk_es_ES=ÅMÅŽÕÑ&url=search-alias%3Daps&field-keywords=%s Amazon Search
 ip      http://shortwaveapp.com/utils/ip.php                IP Address
 whois   http://www.whois-search.com/whois/%s                whois Search
 e       mailto:?subject=%t&body=%s%0A%0A%09%r%0A%0A         Email link
