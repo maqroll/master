@@ -1,6 +1,7 @@
 // TODO: inject array from cdn & github
 // TODO: implement all wildcards
 // use https://jscompress.com/ to compress
+// https://code.tutsplus.com/tutorials/create-bookmarklets-the-right-way--net-18154
 javascript:(function(){
 var QS_cmds = {
     g:  ['Google Search',       'http://www.google.com/search?q=%s'],
