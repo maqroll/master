@@ -24,12 +24,17 @@ function QS_search() {
     }
     var words = statement.split( ' ' );
     var cmd = words.shift();
+    var newtab = false;
+    if(cmd == '') {
+        cmd = words.shift();
+        newtab = true;
+    }
     var args = words.join( ' ' );
     if( cmd == 'help' ) {
         QS_listCommands();
-    } else if( typeof QS_cmds[cmd.replace(/^\s+|\s+$/g, '')] != 'undefined' ) {
-        var url = QS_cmds[cmd.replace(/^\s+|\s+$/g, '')][1].replace( '%s', escape(args) );
-        if(cmd.substring(0,1)==' ') {
+    } else if( typeof QS_cmds[cmd] != 'undefined' ) {
+        var url = QS_cmds[cmd][1].replace( '%s', escape(args) );
+        if(newtab) {
             var w=window.open(url);
             w.focus();
         } else {
