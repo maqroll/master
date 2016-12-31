@@ -1,3 +1,5 @@
+// TODO: inject array from cdn & github
+// TODO: implement all wildcards
 // use https://jscompress.com/ to compress
 javascript:(function(){
 var QS_cmds = {
