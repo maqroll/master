@@ -1,6 +1,7 @@
 // TODO: inject array from cdn & github
 // TODO: implement all wildcards
 // use https://jscompress.com/ to compress
+// replace %s con %25s para que funcione decodeURI
 // https://code.tutsplus.com/tutorials/create-bookmarklets-the-right-way--net-18154
 javascript:(function(){
 var QS_cmds = {
@@ -25,6 +26,7 @@ function QS_search() {
     if( !statement ) {
         return; 
     }
+    var select = window.getSelection ? window.getSelection() : (document.getSelection ? document.getSelection() : (document.selection ? document.selection.createRange().text : ''));
     var words = statement.split( ' ' );
     var cmd = words.shift();
     var newtab = false;
@@ -33,6 +35,9 @@ function QS_search() {
         newtab = true;
     }
     var args = words.join( ' ' );
+    if(select != ''){ //selection takes precedence
+        args = select;
+    }
     if( cmd == 'help' ) {
         QS_listCommands();
     } else if( typeof QS_cmds[cmd] != 'undefined' ) {
