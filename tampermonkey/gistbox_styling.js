@@ -6,7 +6,7 @@
 // @author       You
 // @match        https://app.gistboxapp.com/
 // @grant        none
-// @resource customFont http://fonts.googleapis.com/css?family=Vollkorn
+// @resource customFont http://fonts.googleapis.com/css?family=Old+Standard+TT
 // @run-at      context-menu
 // ==/UserScript==
 
@@ -27,5 +27,9 @@ function addGlobalStyle(css) {
     document.getElementsByClassName('content-view-container')[0].style['padding-left']="0px";
     document.body.style.background="none";
 
-    addGlobalStyle("body{font:normal 100% Vollkorn;}");
+    addGlobalStyle("body{font:normal 120% 'Old Standard TT', serif;;}");
+    document.getElementsByClassName('icon-question-sign')[0].style.display="none";
+    document.getElementsByClassName('icon-cut')[0].style.display="none";
+    document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace('.ace_editor {position: relative;','.ace_editor {position: relative;height: 500px !important;');
 })();
+
