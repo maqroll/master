@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name clipboard saver
+// @grant GM_setClipboard
 // @namespace http://www.example.com/jQueryPlay/
 // @description save clicks in clipboard
 // @include *://*/*
