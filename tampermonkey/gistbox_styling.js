@@ -75,6 +75,7 @@ function main() {
         document.getElementsByClassName('icon-question-sign')[0].style.display="none";
         document.getElementsByClassName('icon-cut')[0].style.display="none";
         document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace('.ace_editor {position: relative;','.ace_editor {position: relative;height: 500px !important;');
+        document.getElementsByClassName('filter-by-updated')[0].click();
         clearInterval(interval);
     }
 }
