@@ -24,6 +24,42 @@ function addGlobalStyle(css) {
 function main() {
     'use strict';
 
+    var observeDOM = (function(){
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+            eventListenerSupported = window.addEventListener;
+
+        return function(obj, callback){
+            if( MutationObserver ){
+                // define a new observer
+                var obs = new MutationObserver(function(mutations, observer){
+                    if( mutations[0].addedNodes.length || mutations[0].removedNodes.length )
+                        callback(mutations);
+                });
+                // have the observer observe foo for changes in children
+                obs.observe( obj, { childList:true, subtree:true });
+            }
+            else if( eventListenerSupported ){
+                obj.addEventListener('DOMNodeInserted', callback, false);
+                obj.addEventListener('DOMNodeRemoved', callback, false);
+            }
+        };
+    })();
+
+    observeDOM( document ,function(mutations){ 
+        for (var i = 0; i < mutations.length; i++) {
+            for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+                if ('classList' in mutations[i].addedNodes[j]) {
+                    if (mutations[i].addedNodes[j].classList.contains('focus-view-gist')) {
+                        var btnAdd = mutations[i].addedNodes[j].querySelectorAll('.add-another-file');
+                        if (btnAdd) {
+                            btnAdd[0].style.display = 'none';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     if (
         (document.getElementsByClassName('sidebar-view-container').length > 0) &&
         (document.getElementsByClassName('content-view-container').length > 0) &&
