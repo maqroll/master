@@ -49,7 +49,7 @@ function main() {
         for (var i = 0; i < mutations.length; i++) {
             for (var j = 0; j < mutations[i].addedNodes.length; j++) {
                 if ('classList' in mutations[i].addedNodes[j]) {
-                    if (mutations[i].addedNodes[j].classList.contains('focus-view-gist')) {
+                    if (mutations[i].addedNodes[j].classList.contains('focus-view-gist') || mutations[i].addedNodes[j].classList.contains('focus-view-edit-gist')) {
                         var btnAdd = mutations[i].addedNodes[j].querySelectorAll('.add-another-file');
                         if (btnAdd) {
                             btnAdd[0].style.display = 'none';
