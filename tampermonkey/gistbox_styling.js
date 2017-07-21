@@ -3,6 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
+// @require http://www.openjs.com/scripts/events/keyboard_shortcuts/shortcut.js
 // @author       You
 // @match        https://app.gistboxapp.com/
 // @grant        none
@@ -80,6 +81,19 @@ function main() {
         document.getElementsByClassName('filter-by-updated')[0].click();
         clearInterval(interval);
     }
+    
+    shortcut.add("Alt+Right",function() {
+        document.getElementsByClassName('filter-bar')[0].style.display="block";
+        document.getElementsByClassName('split-view-list')[0].style.width="354px";
+        document.getElementsByClassName('split-view-content')[0].style.left="355px";
+    });
+
+    shortcut.add("Alt+Left",function() {
+        document.getElementsByClassName('filter-bar')[0].style.display="none";
+        document.getElementsByClassName('split-view-list')[0].style.width="0px";
+        document.getElementsByClassName('split-view-content')[0].style.left="0px";
+    });
+
 }
 
 interval = setInterval(main, 5000);
