@@ -76,7 +76,7 @@ function main() {
         document.getElementsByClassName('icon-question-sign')[0].style.display="none";
         document.getElementsByClassName('icon-cut')[0].style.display="none";
         // available space for editor
-        var availableHeight = document.documentElement.clientHeight - 300;
+        var availableHeight = document.documentElement.clientHeight - document.getElementsByClassName('gist-file-header')[0].getBoundingClientRect().bottom;
         document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace('.ace_editor {position: relative;','.ace_editor {position: relative;height: ' + availableHeight + 'px !important;');
         document.getElementsByClassName('filter-by-updated')[0].click();
         clearInterval(interval);
@@ -86,12 +86,15 @@ function main() {
         document.getElementsByClassName('filter-bar')[0].style.display="block";
         document.getElementsByClassName('split-view-list')[0].style.width="354px";
         document.getElementsByClassName('split-view-content')[0].style.left="355px";
+        document.getElementsByClassName('focus-view-header')[0].style.display="block";
     });
 
     shortcut.add("Alt+Left",function() {
         document.getElementsByClassName('filter-bar')[0].style.display="none";
         document.getElementsByClassName('split-view-list')[0].style.width="0px";
         document.getElementsByClassName('split-view-content')[0].style.left="0px";
+        document.getElementsByClassName('focus-view-header')[0].style.display="none";
+
     });
 
 }
