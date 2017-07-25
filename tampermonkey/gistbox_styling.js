@@ -11,6 +11,7 @@
 // ==/UserScript==
 
 var interval = 0;
+var detail = false;
 
 function addGlobalStyle(css) {
     var head, style;
@@ -20,6 +21,33 @@ function addGlobalStyle(css) {
     style.type = 'text/css';
     style.innerHTML = css;
     head.appendChild(style);
+}
+
+function hide() {
+    document.getElementsByClassName('filter-bar')[0].style.display="none";
+    document.getElementsByClassName('split-view-list')[0].style.width="0px";
+    document.getElementsByClassName('split-view-content')[0].style.left="0px";
+    document.getElementsByClassName('focus-view-header')[0].style.display="none";
+}
+
+function show() {
+    document.getElementsByClassName('filter-bar')[0].style.display="block";
+    document.getElementsByClassName('split-view-list')[0].style.width="354px";
+    document.getElementsByClassName('split-view-content')[0].style.left="355px";
+    document.getElementsByClassName('focus-view-header')[0].style.display="block";
+}
+
+function update() {
+    if (detail) {
+        hide();
+    } else {
+        show();
+    }
+    // available space for editor
+    var availableHeight = document.documentElement.clientHeight - document.getElementsByClassName('gist-file-header')[0].getBoundingClientRect().bottom;
+    document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace(/ace_editor {position: relative;(height: [0-9]*px !important;)?/,'ace_editor {position: relative;height: ' + availableHeight + 'px !important;');
+    if (document.getElementsByClassName('gist-file-code').length > 0) { document.getElementsByClassName('gist-file-code')[0].style.height = availableHeight + 'px';}
+    if (document.getElementsByClassName('focus-view-content').length > 0) { document.getElementsByClassName('focus-view-content')[0].style.height = (document.documentElement.clientHeight - 57) + 'px';}
 }
 
 function main() {
@@ -46,7 +74,9 @@ function main() {
         };
     })();
 
-    observeDOM( document ,function(mutations){ 
+    observeDOM( document ,function(mutations){
+        update();
+
         for (var i = 0; i < mutations.length; i++) {
             for (var j = 0; j < mutations[i].addedNodes.length; j++) {
                 if ('classList' in mutations[i].addedNodes[j]) {
@@ -75,26 +105,18 @@ function main() {
 
         document.getElementsByClassName('icon-question-sign')[0].style.display="none";
         document.getElementsByClassName('icon-cut')[0].style.display="none";
-        // available space for editor
-        var availableHeight = document.documentElement.clientHeight - document.getElementsByClassName('gist-file-header')[0].getBoundingClientRect().bottom;
-        document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace('.ace_editor {position: relative;','.ace_editor {position: relative;height: ' + availableHeight + 'px !important;');
         document.getElementsByClassName('filter-by-updated')[0].click();
         clearInterval(interval);
     }
-    
+
     shortcut.add("Alt+Right",function() {
-        document.getElementsByClassName('filter-bar')[0].style.display="block";
-        document.getElementsByClassName('split-view-list')[0].style.width="354px";
-        document.getElementsByClassName('split-view-content')[0].style.left="355px";
-        document.getElementsByClassName('focus-view-header')[0].style.display="block";
+        detail = false;
+        show();
     });
 
     shortcut.add("Alt+Left",function() {
-        document.getElementsByClassName('filter-bar')[0].style.display="none";
-        document.getElementsByClassName('split-view-list')[0].style.width="0px";
-        document.getElementsByClassName('split-view-content')[0].style.left="0px";
-        document.getElementsByClassName('focus-view-header')[0].style.display="none";
-
+        detail = true;
+        hide();
     });
 
 }
