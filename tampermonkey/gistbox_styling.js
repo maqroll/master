@@ -49,6 +49,7 @@ function update() {
     document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace(/ace_editor {position: relative;(height: [0-9]*px !important;)?/,'ace_editor {position: relative;height: ' + availableHeight + 'px !important;');
     if (document.getElementsByClassName('gist-file-code').length > 0) { document.getElementsByClassName('gist-file-code')[0].style.height = availableHeight + 'px';}
     if (document.getElementsByClassName('focus-view-content').length > 0) { document.getElementsByClassName('focus-view-content')[0].style.height = (document.documentElement.clientHeight - 57) + 'px';}
+    if (document.getElementsByClassName('ace_editor').length > 0) { ace.edit(document.getElementsByClassName('ace_editor')[0]).renderer.updateFull();}
 }
 
 function main() {
