@@ -1,4 +1,4 @@
-* _cubism/cubism.htm_. 
+test* _cubism/cubism.htm_. 
 Test page using [cubism.js](http://square.github.com/cubism/) and SerieTemporalSrv.
 
 * _plot.rc_. 
