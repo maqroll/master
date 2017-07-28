@@ -44,7 +44,8 @@ function update() {
         show();
     }
     // available space for editor
-    var availableHeight = document.documentElement.clientHeight - document.getElementsByClassName('gist-file-header')[0].getBoundingClientRect().bottom  - 10;
+    if (document.getElementsByClassName('add-another-file-container').length > 0) { document.getElementsByClassName('add-another-file-container')[0].style.display = "none";}
+    var availableHeight = document.documentElement.clientHeight - document.getElementsByClassName('gist-file-header')[0].getBoundingClientRect().bottom - 10;
     document.getElementById('ace_editor').innerHTML= document.getElementById('ace_editor').innerHTML.replace(/ace_editor {position: relative;(height: [0-9]*px !important;)?/,'ace_editor {position: relative;height: ' + availableHeight + 'px !important;');
     if (document.getElementsByClassName('gist-file-code').length > 0) { document.getElementsByClassName('gist-file-code')[0].style.height = availableHeight + 'px';}
     if (document.getElementsByClassName('focus-view-content').length > 0) { document.getElementsByClassName('focus-view-content')[0].style.height = (document.documentElement.clientHeight - 57) + 'px';}
