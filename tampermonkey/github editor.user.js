@@ -8,6 +8,8 @@
 // ==/UserScript==
 
 
-$(document).ready(function(){
-  $('div.CodeMirror').height('auto');
-});
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        document.getElementsByClassName('CodeMirror')[0].style.height='auto';
+    }
+}
