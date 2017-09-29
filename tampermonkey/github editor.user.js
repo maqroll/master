@@ -8,23 +8,25 @@
 // @require   http://www.openjs.com/scripts/events/keyboard_shortcuts/shortcut.js 
 // ==/UserScript==
 
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        if (document.querySelector('div.CodeMirror')) {
+            document.querySelector('div.CodeMirror').style.height='auto';
+        }
 
-$(document).ready(function(){
-    $('div.CodeMirror').height('auto');
+        shortcut.add("Ctrl+E",function() {
+            var editBtn = document.querySelector('a[aria-label="Edit this Gist"]');
+            editBtn.click();
+        });
 
-    shortcut.add("Ctrl+E",function() {
-        var editBtn = document.querySelector('a[aria-label="Edit this Gist"]');
-        editBtn.click();
-    });
+        shortcut.add("Esc",function() {
+            var cancelBtn = document.querySelector('a.btn-danger');
+            cancelBtn.click();
+        });
 
-    shortcut.add("Esc",function() {
-        var cancelBtn = document.querySelector('a.btn-danger');
-        cancelBtn.click();
-    });
-
-    shortcut.add("Ctrl+S",function() {
-        var saveBtn = document.querySelector('form.js-blob-form');
-        saveBtn.submit();
-    });
-    
-});
+        shortcut.add("Ctrl+S",function() {
+            var saveBtn = document.querySelector('form.js-blob-form');
+            saveBtn.submit();
+        });
+    }
+};
