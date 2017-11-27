@@ -25,8 +25,8 @@ document.onreadystatechange = function () {
         });
 
         shortcut.add("Ctrl+S",function() {
-            var saveBtn = document.querySelector('form.js-blob-form');
-            saveBtn.submit();
+            var saveBtn = document.querySelector('form.js-blob-form button.btn.btn-primary');
+            saveBtn.click();
         });
     }
 };
