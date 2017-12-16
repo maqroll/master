@@ -1,3 +1,4 @@
+@rem $1=method (POST,GET)
 @set output=%date%.%time%.output
 @set output=%output:/=.%
 @set output=%output::=.%
