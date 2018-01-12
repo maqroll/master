@@ -14,7 +14,13 @@ document.onreadystatechange = function () {
             document.querySelector('div.CodeMirror').style.height='auto';
         }
 
-        shortcut.add("Ctrl+E",function() {
+        if (document.querySelector('div.CodeMirror-lines')) {
+            document.querySelector('div.CodeMirror-lines').style.fontSize='15px';
+            document.querySelector('div.CodeMirror-lines').focus();
+        }
+
+
+        shortcut.add("Ctrl+O",function() {
             var editBtn = document.querySelector('a[aria-label="Edit this Gist"]');
             editBtn.click();
         });
