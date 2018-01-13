@@ -11,10 +11,14 @@
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
 
-
+        shortcut.add("Alt+O",function() {
+            var editBtn = document.querySelector('a[aria-label="Edit this Gist"]');
+            editBtn.click();
+        });
+	    
         // ----------------------------------------------------------------------------------------------
         //                              SUBLIME KEYMAP
-		// ----------------------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------------------
 
         // CodeMirror, copyright (c) by Marijn Haverbeke and others
         // Distributed under an MIT license: http://codemirror.net/LICENSE
@@ -713,11 +717,6 @@ document.onreadystatechange = function () {
         if (document.querySelector('div.CodeMirror-lines')) {
             document.querySelector('div.CodeMirror-lines').style.fontSize='15px';
         }
-
-        shortcut.add("Ctrl+O",function() {
-            var editBtn = document.querySelector('a[aria-label="Edit this Gist"]');
-            editBtn.click();
-        });
 
         shortcut.add("Esc",function() {
             var cancelBtn = document.querySelector('a.btn-danger');
