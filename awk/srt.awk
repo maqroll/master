@@ -1,3 +1,4 @@
+#awk -v from1=00:00:41,000 -v to1=00:00:10,000 -v from2=00:41:43,000 -v to2=00:41:11,000 -f srt.awk unaligned.srt > aligned.srt
 function convert2ts(ms,a,b) {
     ms = (ms*a) + b;
     hours = int(ms/hours2ms);
@@ -16,11 +17,15 @@ BEGIN{
     minutes2ms = 60000;
     hours2ms = 3600000;
 
-    # TODO
-    x1 = convert2ms(0,0,26,533);
-    y1 = convert2ms(0,0,7,716);
-    x2 = convert2ms(0,41,28,144);
-    y2 = convert2ms(0,41,8,216);
+    match(from1,/([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9][0-9][0-9])/,arr_x1);
+    match(to1,/([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9][0-9][0-9])/,arr_y1);
+    match(from2,/([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9][0-9][0-9])/,arr_x2);
+    match(to2,/([0-9][0-9]):([0-9][0-9]):([0-9][0-9]),([0-9][0-9][0-9])/,arr_y2);
+
+    x1 = convert2ms(arr_x1[1],arr_x1[2],arr_x1[3],arr_x1[4])
+    y1 = convert2ms(arr_y1[1],arr_y1[2],arr_y1[3],arr_y1[4])
+    x2 = convert2ms(arr_x2[1],arr_x2[2],arr_x2[3],arr_x2[4])
+    y2 = convert2ms(arr_y2[1],arr_y2[2],arr_y2[3],arr_y2[4])
 
     a = (y2 - y1)/(x2 - x1);
     b = y2 - (a*x2)
