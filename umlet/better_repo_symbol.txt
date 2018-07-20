@@ -1,0 +1,12 @@
+bg=#99d8c9
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*2/5,0,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawRectangle(0,(height+0.5)/5-1,width,(height*3/5)+2) transparency=0 lw=0//Parameters (x, y, width, height)
+drawArc(0,0,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*1/5,width,height*2/5,180,180,true) fg=black transparency=0//Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*3/5,width,height*2/5,180,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/5,0,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/5,width,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
