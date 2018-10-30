@@ -1,9 +1,13 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png
 
 random_sample.csv:
 	rm -f random_sample.csv
 	echo "a,b,c,d,e,f" > random_sample.csv
 	seq 3000 | awk '{print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> random_sample.csv
+
+random_sample2.csv: 
+	echo "a,b,c,d,e,f" > random_sample2.csv
+	seq 30 | awk '{print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0; print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> random_sample2.csv
 
 random_points.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b)) + theme_bw()' > $@
@@ -38,7 +42,9 @@ col.png: random_sample.csv
 col_factor.png: random_sample.csv
 	< random_sample.csv head -n 30 | Rio -ge 'g + geom_col(aes(x=f,y=e,fill=factor(c))) + theme_bw()' > $@
 
-# TODO col stacked
+col_aside.png: random_sample2.csv
+	< random_sample2.csv  Rio -ge 'g + geom_bar(aes(x=f,y=e,fill=factor(c)),stat="identity",position="dodge") + theme_bw()' > $@
+
 boxplot.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_boxplot(aes(x=factor(c),y=a)) + theme_bw()' > $@
 
@@ -53,6 +59,7 @@ violin.png: random_sample.csv
 clean:
 	rm -rf random_points.png \
 		random_sample.csv \
+		random_sample2.csv \
 		facets.png \
 		quantile_uniform.png \
 		quantile_normal.png \
@@ -65,4 +72,5 @@ clean:
 		boxplot.png \
 		dotplot.png \
 		violin.png \
-		col_factor.png
+		col_factor.png \
+		col_aside.png
