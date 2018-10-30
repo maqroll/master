@@ -1,4 +1,4 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png
 
 diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
@@ -24,15 +24,18 @@ quantile_uniform.png: random_sample.csv
 quantile_normal.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_qq(aes(sample=d)) + theme_bw()' > $@
 
+# TODO pintar la media
 histogram_uniform.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=b)) + theme_bw()' > $@
 
+# TODO pintar la media
 histogram_normal.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d)) + theme_bw()' > $@
 
 points_rugs.png: random_sample.csv
 	< random_sample.csv head -n 100 | Rio -ge 'g + geom_point(aes(x=a,y=b)) + geom_rug(aes(x=a,y=b)) + theme_bw()' > $@
 
+# TODO pintar la media
 points_color.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b,color=factor(c))) + theme_bw() + labs(x="x axis", y="y axis", title="Title", subtitle="Subtitle", caption="Caption",color="even/odd")' > $@
 
@@ -80,4 +83,5 @@ clean:
 		dotplot.png \
 		violin.png \
 		col_factor.png \
-		col_aside.png
+		col_aside.png \
+		density2d.png
