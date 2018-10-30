@@ -1,4 +1,4 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png
 
 random_sample.csv:
 	rm -f random_sample.csv
@@ -32,10 +32,13 @@ points_color.png: random_sample.csv
 adjusted.png: random_sample.csv
 	< random_sample.csv head -n 100 | Rio -ge 'g + geom_point(aes(x=f,y=e)) + geom_smooth(aes(x=f,y=e)) + theme_bw()' > $@
 
-# TODO col_several
 col.png: random_sample.csv
 	< random_sample.csv head -n 30 | Rio -ge 'g + geom_col(aes(x=f,y=e)) + theme_bw()' > $@
 
+col_factor.png: random_sample.csv
+	< random_sample.csv head -n 30 | Rio -ge 'g + geom_col(aes(x=f,y=e,fill=factor(c))) + theme_bw()' > $@
+
+# TODO col stacked
 boxplot.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_boxplot(aes(x=factor(c),y=a)) + theme_bw()' > $@
 
@@ -61,4 +64,5 @@ clean:
 		col.png \
 		boxplot.png \
 		dotplot.png \
-		violin.png
+		violin.png \
+		col_factor.png
