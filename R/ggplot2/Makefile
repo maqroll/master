@@ -1,5 +1,8 @@
 all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png
 
+diamonds.csv:
+	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
+
 random_sample.csv:
 	rm -f random_sample.csv
 	echo "a,b,c,d,e,f" > random_sample.csv
@@ -54,12 +57,16 @@ dotplot.png: random_sample.csv
 violin.png: random_sample.csv
 	< random_sample.csv head -n 200 | Rio -ge 'g + geom_violin(aes(x=factor(c),y=a),scale="area") + theme_bw()' > $@
 
+density2d.png: diamonds.csv
+	< diamonds.csv Rio -ge 'g + geom_point(aes(carat,price),alpha=0.05) + geom_density2d(aes(carat,price)) + theme_bw()' > $@
+
 # TODO ejemplo ticks
 
 clean:
 	rm -rf random_points.png \
 		random_sample.csv \
 		random_sample2.csv \
+		diamonds.csv \
 		facets.png \
 		quantile_uniform.png \
 		quantile_normal.png \
