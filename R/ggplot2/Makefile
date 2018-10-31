@@ -24,18 +24,15 @@ quantile_uniform.png: random_sample.csv
 quantile_normal.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_qq(aes(sample=d)) + theme_bw()' > $@
 
-# TODO pintar la media
 histogram_uniform.png: random_sample.csv
-	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=b)) + theme_bw()' > $@
+	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=b)) + stat_function(aes(x=b),fun=mean,geom="line",colour="green") + theme_bw()' > $@
 
-# TODO pintar la media
 histogram_normal.png: random_sample.csv
-	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d)) + theme_bw()' > $@
+	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d)) + geom_hline(aes(yintercept=mean(df$$d)),colour="green") + geom_text(aes(x=median(df$$d),y=mean(df$$d)*2,label=paste0(mean(df$$d))),colour="green") + theme_bw()' > $@
 
 points_rugs.png: random_sample.csv
 	< random_sample.csv head -n 100 | Rio -ge 'g + geom_point(aes(x=a,y=b)) + geom_rug(aes(x=a,y=b)) + theme_bw()' > $@
 
-# TODO pintar la media
 points_color.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b,color=factor(c))) + theme_bw() + labs(x="x axis", y="y axis", title="Title", subtitle="Subtitle", caption="Caption",color="even/odd")' > $@
 
