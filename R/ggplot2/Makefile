@@ -1,4 +1,4 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png
 
 diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
@@ -15,6 +15,9 @@ random_sample2.csv:
 random_points.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b)) + theme_bw() + labs(x="x axis", y="y axis", title="Title", subtitle="Subtitle", caption="Caption")' > $@
 
+path.png: random_sample.csv
+	< random_sample.csv head -n 300 | Rio -ge 'g + geom_path(aes(x=a,y=b),color="gray") + theme_bw()' > $@
+
 facets.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b)) + facet_wrap(~ c) + theme_bw()' > $@
 
@@ -25,10 +28,10 @@ quantile_normal.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_qq(aes(sample=d)) + theme_bw()' > $@
 
 histogram_uniform.png: random_sample.csv
-	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=b)) + geom_vline(aes(xintercept=mean(df$$b)),colour="green") + theme_bw()' > $@
+	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=b,y=..density..),colour="black",fill="white") + stat_density(aes(x=b),geom="line",colour="red",linetype="dashed") + geom_vline(aes(xintercept=mean(df$$b)),colour="green") + theme_bw()' > $@
 
 histogram_normal.png: random_sample.csv
-	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d)) + geom_vline(aes(xintercept=mean(df$$d)),linetype="dashed",colour="green") + geom_text(aes(x=median(df$$d),y=mean(df$$d)*2,label=paste0(mean(df$$d))),colour="green") + theme_bw()' > $@
+	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d,y=..density..),colour="black",fill="white") + stat_density(aes(x=d),geom="line",colour="red",linetype="dashed") + geom_vline(aes(xintercept=mean(df$$d)),linetype="dashed",colour="green") + geom_text(aes(x=median(df$$d),y=0.5,label=paste0(mean(df$$d))),colour="green") + theme_bw()' > $@
 
 points_rugs.png: random_sample.csv
 	< random_sample.csv head -n 100 | Rio -ge 'g + geom_point(aes(x=a,y=b)) + geom_rug(aes(x=a,y=b)) + theme_bw()' > $@
@@ -90,4 +93,5 @@ clean:
 		col_aside.png \
 		density2d.png \
 		area.png \
-		line.png
+		line.png \
+		path.png
