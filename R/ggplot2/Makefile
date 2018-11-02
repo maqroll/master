@@ -3,6 +3,12 @@ all: random_points.png facets.png quantile_uniform.png quantile_normal.png histo
 diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
 
+economics.csv:
+	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/economics.csv'
+
+dates.png:
+	< economics.csv Rio -ge 'g + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=uempmed,colour="uempmed")) + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=psavert,colour="psavert")) + scale_colour_manual("",values=c("uempmed"="red","psavert"="blue")) + labs(x="",y="Percentage") + theme_bw() + theme(legend.position=c(.25,.75))' > $@
+
 random_sample.csv:
 	rm -f random_sample.csv
 	echo "a,b,c,d,e,f" > random_sample.csv
