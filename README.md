@@ -23,11 +23,11 @@ Minimal sigprof cpu sampler for java implemented as a jvmti agent.
 My awk scripts.
 
 * *the method*.
-    - [Captura de requisitos](http://maqroll.github.com/pruebas/method/wf_captura_requisitos.svg)
-    - [Análisis](http://maqroll.github.com/pruebas/method/method/wf_analisis.svg)
-    - [Arquitectura](http://maqroll.github.com/pruebas/method/wf_arquitectura.svg)
-    - [Diseño](http://maqroll.github.com/pruebas/method/method/wf_diseño.svg)
-    - [Construcción](http://maqroll.github.com/pruebas/method/wf_construccion.svg)
+    - [Captura de requisitos](http://maqroll.github.com/master/method/wf_captura_requisitos.svg)
+    - [Análisis](http://maqroll.github.com/master/method/method/wf_analisis.svg)
+    - [Arquitectura](http://maqroll.github.com/master/method/wf_arquitectura.svg)
+    - [Diseño](http://maqroll.github.com/master/method/method/wf_diseño.svg)
+    - [Construcción](http://maqroll.github.com/master/method/wf_construccion.svg)
 
 * *iboli*.
 Convert notes(taken with iris notes digital pen) to pdf.
