@@ -10,10 +10,10 @@ economics.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/economics.csv'
 
 benford.png: population.csv
-	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' | Rio -g -e "g+geom_line(aes(x=d,y=o,color='real')) + stat_smooth(aes(x=d,y=o,color='adjusted'),method='nls',formula=y ~ a*exp(b*x),se=FALSE)+ theme_bw()" >  benford.png
+	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' | Rio -g -e "g+geom_line(aes(x=d,y=o,color='real')) + stat_smooth(aes(x=d,y=o,color='adjusted'),formula=y ~ x,se=FALSE,linetype='dashed')+ theme_bw()" > $@
 
 benford2.png: population.csv
-	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' | Rio -g -e "bl <- data.frame(d=c(1,2,3,4,5,6,7,8,9),o=c(0.3,0.17,0.12,0.09,0.079,0.066,0.057,0.051,0.045)); g+geom_line(aes(x=d,y=o,color='real')) + geom_line(data=bl,aes(x=d,y=o,color='law')) + stat_smooth(aes(x=d,y=o,color='adjusted'),se=FALSE) + theme_bw()" >  benford2.png
+	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' | Rio -g -e "bl <- data.frame(d=c(1,2,3,4,5,6,7,8,9),o=c(0.3,0.17,0.12,0.09,0.079,0.066,0.057,0.051,0.045)); g+geom_line(aes(x=d,y=o,color='real')) + geom_line(data=bl,aes(x=d,y=o,color='law')) + geom_ribbon(aes(x=bl[,c('d')],ymin=bl[,c('o')],ymax=df[,c('o')]),fill='gray',alpha=0.2) + theme_bw();" > $@
 
 dates.png: economics.csv
 	< economics.csv Rio -ge 'g + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=uempmed,colour="uempmed")) + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=psavert,colour="psavert")) + scale_colour_manual("",values=c("uempmed"="red","psavert"="blue")) + labs(x="",y="Percentage") + theme_bw() + theme(legend.position=c(.25,.75))' > $@
@@ -79,7 +79,6 @@ line.png: random_sample.csv
 	< random_sample.csv head -n 200 | Rio -ge 'g + geom_line(aes(x=f,y=a,color=factor(c))) + theme_bw()' > $@
 
 # TODO ejemplo de coordenadas polares
-# TODO Pintar las lineas de media de las dos agrupaciones
 area.png: random_sample.csv
 	< random_sample.csv head -n 200 | Rio -ge 'g + geom_area(aes(x=f,y=a,color=factor(c)),alpha=0.05) + scale_color_manual("",values=c("0"="red","1"="green")) + geom_hline(aes(yintercept=jitter(mean(df[df$$c==0,]$$a))),color="red") + geom_hline(aes(yintercept=jitter(mean(df[df$$c==1,]$$a))),color="green") + theme_bw()' > $@
 
