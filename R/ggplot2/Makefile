@@ -100,33 +100,5 @@ worldmap2.png: random_sample.csv
 # TODO ejemplo ticks
 
 clean:
-	rm -rf random_points.png \
-		random_sample.csv \
-		random_sample2.csv \
-		diamonds.csv \
-		economics.csv \
-		facets.png \
-		quantile_uniform.png \
-		quantile_normal.png \
-		histogram_uniform.png \
-		histogram_normal.png \
-		adjusted.png \
-		points_rugs.png \
-		points_color.png \
-		col.png \
-		boxplot.png \
-		dotplot.png \
-		violin.png \
-		col_factor.png \
-		col_aside.png \
-		density2d.png \
-		area.png \
-		line.png \
-		path.png \
-		dates.png \
-		path_color.png \
-		worldmap.png \
-		worldmap2.png \
-		population.csv \
-		benford.png \
-		benford2.png
+	rm -rf *.png
+	rm -rf *.csv
