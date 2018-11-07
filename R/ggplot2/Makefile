@@ -19,7 +19,7 @@ benford2.png: benford_summary.csv
 	< benford_summary.csv Rio -g -e "bl <- data.frame(d=c(1,2,3,4,5,6,7,8,9),o=c(0.3,0.17,0.12,0.09,0.079,0.066,0.057,0.051,0.045)); g+geom_line(aes(x=d,y=o,color='real')) + geom_line(data=bl,aes(x=d,y=o,color='law')) + geom_ribbon(aes(x=bl[,c('d')],ymin=bl[,c('o')],ymax=df[,c('o')]),fill='gray',alpha=0.2) + theme_bw();" > $@
 
 benford3.png: benford_summary.csv
-	< benford_summary.csv Rio -g -e "g <- ggplot(df,aes(x=d,y=o)) + geom_line() + coord_polar(theta='x') + theme_bw();" > $@
+	< benford_summary.csv Rio -g -e "g <- ggplot(df,aes(x=d,y=o)) + geom_line() + scale_x_continuous(breaks=c(1,2,3,4,5,6,7,8,9)) + coord_polar(theta='x') + theme_bw();" > $@
 
 benford4.png: benford_summary.csv
 	< benford_summary.csv Rio -g -e "g + geom_col(aes(x=d,y=o,fill=factor(d)),width=1) + scale_x_continuous(breaks=c(1,2,3,4,5,6,7,8,9)) + coord_polar(theta='x') + theme_bw();" > $@
@@ -87,7 +87,6 @@ dotplot.png: random_sample.csv
 line.png: random_sample.csv
 	< random_sample.csv head -n 200 | Rio -ge 'g + geom_line(aes(x=f,y=a,color=factor(c))) + theme_bw()' > $@
 
-# TODO ejemplo de coordenadas polares
 area.png: random_sample.csv
 	< random_sample.csv head -n 200 | Rio -ge 'g + geom_area(aes(x=f,y=a,color=factor(c)),alpha=0.05) + scale_color_manual("",values=c("0"="red","1"="green")) + geom_hline(aes(yintercept=jitter(mean(df[df$$c==0,]$$a))),color="red") + geom_hline(aes(yintercept=jitter(mean(df[df$$c==1,]$$a))),color="green") + theme_bw()' > $@
 
@@ -104,8 +103,6 @@ worldmap.png: random_sample.csv
 # Rio requires input data
 worldmap2.png: random_sample.csv
 	< random_sample.csv Rio -ge 'require("maps"); world <- map_data("world"); worldmap <- ggplot(world,aes(x=long,y=lat, group=group)) + geom_path() + scale_y_continuous(breaks=(-2:2)*30) + scale_x_continuous(breaks=(-4:4)*45) + coord_map("ortho",orientation=c(43,8,0)) + labs(x="",y="") + theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank())' > $@
-
-# TODO ejemplo ticks
 
 clean:
 	rm -rf *.png
