@@ -1,4 +1,4 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png coins.png
 
 population.csv:
 	curl --output population.csv "https://datasource.kapsarc.org/explore/dataset/saudi-arabia-population-by-administrative-region-nationality-and-sex/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true"
@@ -11,6 +11,12 @@ economics.csv:
 
 benford_summary.csv: population.csv
 	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' > $@
+
+coins.csv:
+	seq 1000 | awk 'BEGIN{srand(); print "tosses,crosses"} {if (rand()>0.5) crosses++; tosses++; print tosses","crosses/tosses*100}' > coins.csv
+
+coins.png: coins.csv
+	< coins.csv Rio -g -e 'g + geom_line(aes(x=tosses,y=crosses)) + geom_hline(aes(yintercept=50),linetype="dashed",colour="red") + theme_bw()' > $@
 
 benford.png: benford_summary.csv
 	< benford_summary.csv  Rio -g -e "g+geom_line(aes(x=d,y=o,color='real')) + stat_smooth(aes(x=d,y=o,color='adjusted'),formula=y ~ x,se=FALSE,linetype='dashed')+ theme_bw()" > $@
