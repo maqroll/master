@@ -1,10 +1,18 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png coins.png
+all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png coins.png thepoweroftwochoices.png
 
 population.csv:
 	curl --output population.csv "https://datasource.kapsarc.org/explore/dataset/saudi-arabia-population-by-administrative-region-nationality-and-sex/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true"
 
 diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
+
+thepoweroftwochoices.csv:
+	echo  "bucket,hits,method" > thepoweroftwochoices.csv
+	seq 400 | awk 'BEGIN{srand()} {a=rand()*10; t[int(a)]++} END{for (i in t) print i","t[i]",1"}' | sort >> thepoweroftwochoices.csv
+	seq 400 | awk 'BEGIN{srand()} {f=int(rand()*10); j=int(rand()*10); if (t[f]<t[j]) {t[f]++} else {t[j]++}} END{for (i in t) print i","t[i]",2"}' | sort >> thepoweroftwochoices.csv
+
+thepoweroftwochoices.png: thepoweroftwochoices.csv
+	< thepoweroftwochoices.csv  Rio -ge 'g + geom_bar(aes(x=bucket,y=hits,fill=factor(method,levels=c(1,2),labels=c("Simple","2 choices"))),stat="identity",position="dodge") + labs(fill="method") + theme_bw()' > $@
 
 economics.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/economics.csv'
@@ -15,6 +23,7 @@ benford_summary.csv: population.csv
 coins.csv:
 	seq 1000 | awk 'BEGIN{srand(); print "tosses,crosses"} {if (rand()>0.5) crosses++; tosses++; print tosses","crosses/tosses*100}' > coins.csv
 
+# TPMT (J. Ellenberg) chapter 4
 coins.png: coins.csv
 	< coins.csv Rio -g -e 'g + geom_line(aes(x=tosses,y=crosses)) + geom_hline(aes(yintercept=50),linetype="dashed",colour="red") + theme_bw()' > $@
 
