@@ -1,13 +1,13 @@
 all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png coins.png thepoweroftwochoices.png shuffle.png
 
 shuffle.csv: 
-	seq 48 | awk 'BEGIN{print "pos,card,iter"} {c[$$0]=$$0; o[$$0]=$$0;print $$0","$$0",0"} END{for(i=1;i<30;i++){for(j=1;j<=24;j++){c[2*j]=o[j]} for(j=1;j<=24;j++){c[2*j-1]=o[j+24]} for(j=1;j<=48;j++){print j","c[j]","i} for(j=1;j<=48;j++){o[j]=c[j]}}}' > shuffle.csv
+	seq 48 | awk 'BEGIN{print "pos,card,iter"} {c[$$0]=$$0; o[$$0]=$$0;print $$0","$$0",0"} END{for(i=1;i<=21;i++){for(j=1;j<=24;j++){c[2*j]=o[j]} for(j=1;j<=24;j++){c[2*j-1]=o[j+24]} for(j=1;j<=48;j++){print j","c[j]","i} for(j=1;j<=48;j++){o[j]=c[j]}}}' > shuffle.csv
 
 shuffle.png: shuffle.csv
 	< shuffle.csv Rio -ge 'g + geom_point(aes(x=pos,y=iter,color=factor(card))) + scale_color_grey(start=1,end=0) + theme_bw()' > $@
 
 population.csv:
-	curl --output population.csv "https://datasource.kapsarc.org/explore/dataset/saudi-arabia-population-by-administrative-region-nationality-and-sex/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true"
+	curl --output population.csv --compressed "https://datasource.kapsarc.org/explore/dataset/saudi-arabia-population-by-administrative-region-nationality-and-sex/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true"
 
 diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
