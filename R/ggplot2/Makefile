@@ -1,4 +1,13 @@
-all: random_points.png facets.png quantile_uniform.png quantile_normal.png histogram_uniform.png histogram_normal.png adjusted.png points_rugs.png points_color.png col.png boxplot.png dotplot.png violin.png col_factor.png col_aside.png density2d.png area.png line.png path.png dates.png path_color.png worldmap.png worldmap2.png benford.png benford2.png benford3.png benford4.png coins.png thepoweroftwochoices.png shuffle.png gradient.png
+all: random_points.png facets.png quantile_uniform.png \
+	quantile_normal.png histogram_uniform.png histogram_normal.png \
+	adjusted.png points_rugs.png points_color.png \
+	col.png boxplot.png dotplot.png violin.png \
+	col_factor.png col_aside.png density2d.png \
+	area.png line.png path.png \
+	dates.png path_color.png worldmap.png \
+	worldmap2.png benford.png benford2.png \
+	benford3.png benford4.png coins.png \
+	thepoweroftwochoices.png shuffle.png gradient.png
 
 gradient.csv:
 	awk -f gradient.awk > gradient.csv
