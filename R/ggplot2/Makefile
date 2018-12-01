@@ -7,16 +7,23 @@ all: random_points.png facets.png quantile_uniform.png \
 	dates.png path_color.png worldmap.png \
 	worldmap2.png benford.png benford2.png \
 	benford3.png benford4.png coins.png \
-	thepoweroftwochoices.png shuffle.png gradient.png
+	thepoweroftwochoices.png shuffle.png gradient.png \
+	lincoln.png
 
 gradient.csv:
-	awk -f gradient.awk > gradient.csv
+	awk -f gradient.awk > $@
 
 gradient2.csv:
-	awk -f gradient2.awk > gradient2.csv
+	awk -f gradient2.awk > $@
 
 gradient.png: gradient.csv gradient2.csv
 	< gradient.csv Rio -ge 'df2<-read.csv("/data/gradient2.csv",header=T,sep=',',stringsAsFactors=F); ggplot(data=df,aes(x=a,y=b,z=error)) + stat_contour(binwidth=1,aes(color=..level..)) + geom_path(data=df2,aes(a,b),color="red")' > $@
+
+lincoln.csv:
+	awk -f lincoln.awk > $@
+
+lincoln.png: lincoln.csv
+	< lincoln.csv Rio -ge "g <- ggplot() + geom_contour(data=df,aes(x=a,y=b,z=bugs,color=..level..)) + facet_wrap(~ s) + theme_bw();" > $@
 
 shuffle.csv: 
 	seq 48 | awk 'BEGIN{print "pos,card,iter"} {c[$$0]=$$0; o[$$0]=$$0;print $$0","$$0",0"} END{for(i=1;i<=21;i++){for(j=1;j<=24;j++){c[2*j]=o[j]} for(j=1;j<=24;j++){c[2*j-1]=o[j+24]} for(j=1;j<=48;j++){print j","c[j]","i} for(j=1;j<=48;j++){o[j]=c[j]}}}' > $@
@@ -31,9 +38,9 @@ diamonds.csv:
 	curl -O 'https://raw.githubusercontent.com/tidyverse/ggplot2/master/data-raw/diamonds.csv'
 
 thepoweroftwochoices.csv:
-	echo  "bucket,hits,method" > thepoweroftwochoices.csv
-	seq 400 | awk 'BEGIN{srand()} {a=rand()*10; t[int(a)]++} END{for (i in t) print i","t[i]",1"}' | sort >> thepoweroftwochoices.csv
-	seq 400 | awk 'BEGIN{srand()} {f=int(rand()*10); j=int(rand()*10); if (t[f]<t[j]) {t[f]++} else {t[j]++}} END{for (i in t) print i","t[i]",2"}' | sort >> thepoweroftwochoices.csv
+	echo  "bucket,hits,method" > $@
+	seq 400 | awk 'BEGIN{srand()} {a=rand()*10; t[int(a)]++} END{for (i in t) print i","t[i]",1"}' | sort >> $@
+	seq 400 | awk 'BEGIN{srand()} {f=int(rand()*10); j=int(rand()*10); if (t[f]<t[j]) {t[f]++} else {t[j]++}} END{for (i in t) print i","t[i]",2"}' | sort >> $@
 
 thepoweroftwochoices.png: thepoweroftwochoices.csv
 	< thepoweroftwochoices.csv  Rio -ge 'g + geom_bar(aes(x=bucket,y=hits,fill=factor(method,levels=c(1,2),labels=c("Simple","2 choices"))),stat="identity",position="dodge") + labs(fill="method") + theme_bw()' > $@
@@ -45,7 +52,7 @@ benford_summary.csv: population.csv
 	cat population.csv | awk -F ';' 'NR>1{c++;o[substr($$4,1,1)]++} END{print "d,o"; for (i in o) print i","o[i]/c}' > $@
 
 coins.csv:
-	seq 1000 | awk 'BEGIN{srand(); print "tosses,crosses"} {if (rand()>0.5) crosses++; tosses++; print tosses","crosses/tosses*100}' > coins.csv
+	seq 1000 | awk 'BEGIN{srand(); print "tosses,crosses"} {if (rand()>0.5) crosses++; tosses++; print tosses","crosses/tosses*100}' > $@
 
 # TPMT (J. Ellenberg) chapter 4
 coins.png: coins.csv
@@ -68,12 +75,12 @@ dates.png: economics.csv
 
 random_sample.csv:
 	rm -f random_sample.csv
-	echo "a,b,c,d,e,f" > random_sample.csv
-	seq 3000 | awk 'BEGIN{srand()} {print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> random_sample.csv
+	echo "a,b,c,d,e,f" > $@
+	seq 3000 | awk 'BEGIN{srand()} {print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> $@
 
 random_sample2.csv: 
 	echo "a,b,c,d,e,f" > random_sample2.csv
-	seq 30 | awk 'BEGIN{srand()} {print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0; print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> random_sample2.csv
+	seq 30 | awk 'BEGIN{srand()} {print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0; print rand()*100","rand()*50","int(rand()*10)%2","rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()+rand()","int($$0)+(rand()*50)","$$0}' >> $@
 
 random_points.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_point(aes(x=a,y=b,colour=sqrt((df$$a-50)^2 + (df$$b-25)^2))) + scale_colour_distiller(palette="Blues",name="distance") + theme_bw() + labs(x="x axis", y="y axis", title="Title", subtitle="Subtitle", caption="Caption")' > $@
