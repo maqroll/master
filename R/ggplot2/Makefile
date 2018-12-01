@@ -8,7 +8,7 @@ all: random_points.png facets.png quantile_uniform.png \
 	worldmap2.png benford.png benford2.png \
 	benford3.png benford4.png coins.png \
 	thepoweroftwochoices.png shuffle.png gradient.png \
-	lincoln.png
+	lincoln.png rule_of_three.png
 
 gradient.csv:
 	awk -f gradient.awk > $@
@@ -18,6 +18,12 @@ gradient2.csv:
 
 gradient.png: gradient.csv gradient2.csv
 	< gradient.csv Rio -ge 'df2<-read.csv("/data/gradient2.csv",header=T,sep=',',stringsAsFactors=F); ggplot(data=df,aes(x=a,y=b,z=error)) + stat_contour(binwidth=1,aes(color=..level..)) + geom_path(data=df2,aes(a,b),color="red")' > $@
+
+rule_of_three.csv:
+	awk -f rule_of_three.awk > $@
+
+rule_of_three.png: rule_of_three.csv
+	< rule_of_three.csv Rio -ge "g <- ggplot(df,aes(n,p)) + geom_line() + theme_bw()" > $@
 
 lincoln.csv:
 	awk -f lincoln.awk > $@
