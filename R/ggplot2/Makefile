@@ -23,7 +23,7 @@ rule_of_three.csv:
 	awk -f rule_of_three.awk > $@
 
 rule_of_three.png: rule_of_three.csv
-	< rule_of_three.csv Rio -ge "g <- ggplot(df,aes(n,p)) + geom_line() + theme_bw()" > $@
+	< rule_of_three.csv Rio -ge "g <- ggplot(df,aes(n,p)) + geom_area() + theme_bw()" > $@
 
 lincoln.csv:
 	awk -f lincoln.awk > $@
