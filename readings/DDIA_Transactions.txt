@@ -1,0 +1,18 @@
+Why transactions? Client/db may fail at any time. Inconsistency through concurrent writes.
+SIMPLIFY THE PROGRAMMING MODEL FOR APPLICATIONS ACCESSING A DATABASE.
++safety, -performance/availabitity.
+Safety = ACID (Atomicity, Consistency, Isolation, and Durability)
+Atomicity = Commit/Rollback.
+Isolation = See transaction changes as a whole (concurrency).
+Durability = If commited couldn't be lost.
+Serializable isolation has a performance cost -> weaker levels of isolation.
+Read committed: 1) only see data that has been committed (no dirty reads) 2) only overwrite data that has been committed (no dirty writes)
+Read committed suffers from non-repeatable reads.
+Snapshot isolation: the transaction sees all the data that was committed in the database at the start of the transac‐ tion. 
+Snapshot isolation: called serializable in Oracle, and in PostgreSQL and MySQL is called repeatable read.
+Lost update? Read-modify-write
+PostgreSQL’s repeatable read, Oracle’s serializable, and SQL Server’s snapshot isolation levels automatically detect when a lost update has occurred and abort the offending transaction.
+Avoid lost update: explicit locking (SELECT FOR UPDATE).
+Write skew: updating different datasets based on read (no lost update).
+Two-phase locking: shared and exclusive locks.
+Serializable snapshot isolation: optimistic locking.
