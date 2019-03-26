@@ -8,13 +8,11 @@ all: random_points.png facets.png quantile_uniform.png \
 	worldmap2.png benford.png benford2.png \
 	benford3.png benford4.png coins.png \
 	thepoweroftwochoices.png shuffle.png gradient.png \
-	lincoln.png rule_of_three.png dist.png
+	lincoln.png rule_of_three.png dist.png \
+	latencias_avg.png latencias_min.png latencias_max.png
 
-tiempos.csv: tiempos.awk
-	awk -f tiempos.awk > $@
-
-dist.png: tiempos.txt
-	< tiempos.txt Rio -ge 'g <- ggplot(df,aes(time)) + geom_density() + scale_x_continuous(limits=c(100,500),minor_breaks=seq(110,490,by=10)) + xlab("time (ms)") + theme_bw()' > $@
+dist.png: 
+	awk -f tiempos.awk | Rio -ge 'g <- ggplot(df,aes(time)) + geom_density() + scale_x_continuous(limits=c(100,500),minor_breaks=seq(110,490,by=10)) + xlab("time (ms)") + theme_bw()' > $@
 
 gradient.csv:
 	awk -f gradient.awk > $@
