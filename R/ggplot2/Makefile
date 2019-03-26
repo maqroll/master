@@ -85,6 +85,15 @@ benford4.png: benford_summary.csv
 dates.png: economics.csv
 	< economics.csv Rio -ge 'g + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=uempmed,colour="uempmed")) + geom_line(aes(x=as.Date(date,"%Y-%m-%d"),y=psavert,colour="psavert")) + scale_colour_manual("",values=c("uempmed"="red","psavert"="blue")) + labs(x="",y="Percentage") + theme_bw() + theme(legend.position=c(.25,.75))' > $@
 
+latencias_avg.png: latencias.txt
+	awk -F, 'NR==1{print $$0} NR>1&&$$5<20{print $$0}' latencias.txt | Rio -ge 'require("scales"); g + geom_line(aes(x=as.POSIXct(fecha),y=avg,colour=factor(inst))) + scale_x_datetime(labels=date_format("%Y-%m-%d")) + scale_y_continuous(limits=c(0,20),minor_breaks=seq(0,20,by=2)) + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==1,]$$avg))),colour="red",linetype="dotted") + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==24,]$$avg))),colour="green",linetype="dashed") + theme_bw()' > $@
+
+latencias_min.png: latencias.txt
+	awk -F, 'NR==1{print $$0} NR>1&&$$4<20{print $$0}' latencias.txt | Rio -ge 'require("scales"); g + geom_line(aes(x=as.POSIXct(fecha),y=min,colour=factor(inst))) + scale_x_datetime(labels=date_format("%Y-%m-%d")) + scale_y_continuous(limits=c(0,20),minor_breaks=seq(0,20,by=2)) + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==1,]$$min))),colour="red",linetype="dotted") + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==24,]$$min))),colour="green",linetype="dashed") + theme_bw()' > $@
+
+latencias_max.png: latencias.txt
+	awk -F, 'NR==1{print $$0} NR>1&&$$6<20{print $$0}' latencias.txt | Rio -ge 'require("scales"); g + geom_line(aes(x=as.POSIXct(fecha),y=max,colour=factor(inst))) + scale_x_datetime(labels=date_format("%Y-%m-%d")) + scale_y_continuous(limits=c(0,20),minor_breaks=seq(0,20,by=2)) + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==1,]$$max))),colour="red",linetype="dotted") + geom_hline(aes(yintercept=jitter(mean(df[df$$inst==24,]$$max))),colour="green",linetype="dashed") + theme_bw()' > $@
+
 random_sample.csv:
 	rm -f random_sample.csv
 	echo "a,b,c,d,e,f" > $@
