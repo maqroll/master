@@ -1,0 +1,7 @@
+Networks and clocks are unreliable.
+Distributed systems -> partial failures are possible!!
+Circuit switching (allocated bandwidth) vs packet switching (queueing).
+Byzantine fault tolerant.
+Synchronous model (bounded network delay, bounded process pauses & bounded clock error).
+Partially synchronous model (synchronous model most of the time).
+Asynchronous model (no assumptions are possible).
