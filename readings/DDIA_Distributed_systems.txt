@@ -1,7 +1,7 @@
-Networks and clocks are unreliable.
-Distributed systems -> partial failures are possible!!
+Distributed systems: packets can be lost, reordered, duplicated, or arbitrarily delayed in the network; clocks are approximate at best; and nodes can pause (e.g., due to garbage collection) or crash at any time -> partial failures are possible!!
 Circuit switching (allocated bandwidth) vs packet switching (queueing).
 Byzantine fault tolerant.
 Synchronous model (bounded network delay, bounded process pauses & bounded clock error).
 Partially synchronous model (synchronous model most of the time).
 Asynchronous model (no assumptions are possible).
+The best way of building [fault-tolerant] distributed systems is to find some general-purpose abstractions with useful guarantees, implement them once, and then let applications rely on those guarantees.
