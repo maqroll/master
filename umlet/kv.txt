@@ -1,0 +1,11 @@
+fontsize=10
+lw=1.2
+bg=#41b6c4
+customelement=
+drawRectangle(0,0,width,height)
+drawText("*k*", width/4, height/5, center)
+drawText("*v*", 3*width/4, height/5, center) 
+drawLine(0, height/4, width, height/4)
+drawLine(0, 2*height/4, width, 2*height/4)
+drawLine(0, 3*height/4, width, 3*height/4)
+drawLine(width/2,0,width/2,height)
