@@ -1,0 +1,7 @@
+
+customelement=
+drawCircle(width/2,height/7,width/4) bg=#000000 transparency=0
+drawLine(0,(1.8*height)/6,width,(1.8*height)/6)
+drawLine(width/2,(1.8*height)/6,width/2,height)
+drawLine(0,(1.8*height)/6,0,(3*height)/6)
+drawLine(width,(height)/6,width,(1.8*height)/6)
