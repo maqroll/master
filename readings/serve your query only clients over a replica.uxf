@@ -1,0 +1,128 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><help_text></help_text><element><id>UMLState</id><coordinates><x>450</x><y>278</y><w>140</w><h>70</h></coordinates><panel_attributes>*Query srv*
+valign=center
+bg=#fed976
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>70</x><y>278</y><w>80</w><h>70</h></coordinates><panel_attributes>halign=center
+bg=#99d8c9
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*2/5,0,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawRectangle(0,(height+0.5)/5-1,width,(height*3/5)+2) transparency=0 lw=0//Parameters (x, y, width, height)
+drawArc(0,0,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*1/5,width,height*2/5,180,180,true) fg=black transparency=0//Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*3/5,width,height*2/5,180,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/5,0,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/5,width,height*4/5)fg=black //Parameters (x1, y1, x2, y2) </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>298</y><w>140</w><h>40</h></coordinates><panel_attributes>lt=&lt;..
+/batch/
+lw=1.2</panel_attributes><additional_attributes>120;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>298</y><w>130</w><h>40</h></coordinates><panel_attributes>lt=&lt;-
+/read/
+lw=1.2</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element><element><id>Text</id><coordinates><x>70</x><y>438</y><w>80</w><h>60</h></coordinates><panel_attributes>halign=center
+bg=#bcbddc
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*2/5,0,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawRectangle(0,(height+0.5)/5-1,width,(height*3/5)+2) transparency=0 lw=0//Parameters (x, y, width, height)
+drawArc(0,0,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*1/5,width,height*2/5,180,180,true) fg=black transparency=0//Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*3/5,width,height*2/5,180,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/5,0,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/5,width,height*4/5)fg=black //Parameters (x1, y1, x2, y2) </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>338</y><w>110</w><h>120</h></coordinates><panel_attributes>lt=&lt;..
+/batch (coupling)/
+lw=1.2</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>700</x><y>118</y><w>130</w><h>50</h></coordinates><panel_attributes>
+ 
+valign=top
+bg=#fd8d3c
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>139</y><w>210</w><h>160</h></coordinates><panel_attributes>lt=&lt;-
+/read/
+lw=1.2</panel_attributes><additional_attributes>10;140;10;10;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>159</y><w>120</w><h>70</h></coordinates><panel_attributes>lt=&lt;-
+m1=read/write\n(synchronization)
+</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>720</x><y>248</y><w>80</w><h>20</h></coordinates><panel_attributes>* kv*
+halign=center
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>700</x><y>288</y><w>130</w><h>60</h></coordinates><panel_attributes>
+ 
+valign=top
+bg=#fd8d3c
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>309</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;-
+lw=1.2</panel_attributes><additional_attributes>10;10;120;10</additional_attributes></element><element><id>UMLState</id><coordinates><x>700</x><y>418</y><w>130</w><h>60</h></coordinates><panel_attributes>
+ 
+valign=top
+bg=#fd8d3c
+lw=2</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>710</x><y>518</y><w>100</w><h>70</h></coordinates><panel_attributes>halign=center
+bg=#99d8c9
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*2/5,0,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawRectangle(0,(height+0.5)/5-1,width,(height*3/5)+2) transparency=0 lw=0//Parameters (x, y, width, height)
+drawArc(0,0,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*1/5,width,height*2/5,180,180,true) fg=black transparency=0//Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*3/5,width,height*2/5,180,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/5,0,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/5,width,height*4/5)fg=black //Parameters (x1, y1, x2, y2) </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>469</y><w>120</w><h>70</h></coordinates><panel_attributes>lt=&lt;-
+m1=read\n(synchronization)</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>338</y><w>220</w><h>250</h></coordinates><panel_attributes>lt=&lt;..
+/third party batch/
+/total/differential update/
+lw=1.2</panel_attributes><additional_attributes>200;220;10;220;10;10</additional_attributes></element><element><id>Text</id><coordinates><x>260</x><y>279</y><w>90</w><h>60</h></coordinates><panel_attributes>fontsize=10
+lw=1.2
+bg=#41b6c4
+customelement=
+drawRectangle(0,0,width,height)
+drawText("*k*", width/4, height/5, center)
+drawText("*v*", 3*width/4, height/5, center) 
+drawLine(0, height/4, width, height/4)
+drawLine(0, 2*height/4, width, 2*height/4)
+drawLine(0, 3*height/4, width, 3*height/4)
+drawLine(width/2,0,width/2,height)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>720</x><y>209</y><w>80</w><h>40</h></coordinates><panel_attributes>fontsize=8
+bg=#41b6c4
+lw=1.2
+customelement=
+drawRectangle(0,0,width,height)
+drawText("*k*", width/4, height/5, center)
+drawText("*v*", 3*width/4, height/5, center) 
+drawLine(0, height/4, width, height/4)
+drawLine(0, 2*height/4, width, 2*height/4)
+drawLine(0, 3*height/4, width, 3*height/4)
+drawLine(width/2,0,width/2,height)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>770</x><y>319</y><w>50</w><h>20</h></coordinates><panel_attributes>fontsize=6
+bg=#41b6c4
+customelement=
+drawRectangle(0,0,width,height)
+drawText("*k*", width/4, height/4, center)
+drawText("*v*", 3*width/4, height/4, center) 
+drawLine(0, height/4, width, height/4)
+drawLine(0, 2*height/4, width, 2*height/4)
+drawLine(0, 3*height/4, width, 3*height/4)
+drawLine(width/2,0,width/2,height)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>50</x><y>58</y><w>50</w><h>30</h></coordinates><panel_attributes>halign=center
+bg=#99d8c9
+customelement=
+// Text Elemnt
+// DB Symbol
+drawArc(0,0,width,height*2/5,0,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawRectangle(0,(height+0.5)/5-1,width,(height*3/5)+2) transparency=0 lw=0//Parameters (x, y, width, height)
+drawArc(0,0,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*1/5,width,height*2/5,180,180,true) fg=black transparency=0//Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*3/5,width,height*2/5,180,180,true) fg=black transparency=0 //Parameters (x, y, width, height, start, extent, open)
+drawArc(0,height*2/5,width,height*2/5,180,180,true) fg=black //Parameters (x, y, width, height, start, extent, open)
+drawLine(0,height/5,0,height*4/5)fg=black //Parameters (x1, y1, x2, y2) 
+drawLine(width,height/5,width,height*4/5)fg=black //Parameters (x1, y1, x2, y2) </panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>50</x><y>99</y><w>50</w><h>20</h></coordinates><panel_attributes>fontsize=6
+bg=#41b6c4
+customelement=
+drawRectangle(0,0,width,height)
+drawText("*k*", width/4, height/4, center)
+drawText("*v*", 3*width/4, height/4, center) 
+drawLine(0, height/4, width, height/4)
+drawLine(0, 2*height/4, width, 2*height/4)
+drawLine(0, 3*height/4, width, 3*height/4)
+drawLine(width/2,0,width/2,height)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>110</x><y>60</y><w>100</w><h>20</h></coordinates><panel_attributes>*/Relational db/*
+style=wordwrap</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>110</x><y>100</y><w>100</w><h>20</h></coordinates><panel_attributes>/*kv store*/
+style=wordwrap</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>50</x><y>250</y><w>330</w><h>120</h></coordinates><panel_attributes>valign=top
+lt=..
+/*Replica (~ CQRS))*/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Text</id><coordinates><x>40</x><y>500</y><w>130</w><h>20</h></coordinates><panel_attributes>*Third-party service*
+halign=center
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>40</x><y>240</y><w>570</w><h>140</h></coordinates><panel_attributes>lt=.
+bg=#9ecae1
+transparency=90</panel_attributes><additional_attributes></additional_attributes></element></diagram>
