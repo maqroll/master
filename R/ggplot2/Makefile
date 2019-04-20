@@ -9,7 +9,8 @@ all: random_points.png facets.png quantile_uniform.png \
 	benford3.png benford4.png coins.png \
 	thepoweroftwochoices.png shuffle.png gradient.png \
 	lincoln.png rule_of_three.png dist.png \
-	latencias_avg.png latencias_min.png latencias_max.png
+	latencias_avg.png latencias_min.png latencias_max.png \
+	histogram.png
 
 dist.png: 
 	awk -f tiempos.awk | Rio -ge 'g <- ggplot(df,aes(time)) + geom_density() + scale_x_continuous(limits=c(100,500),minor_breaks=seq(110,490,by=10)) + xlab("time (ms)") + theme_bw()' > $@
@@ -40,6 +41,10 @@ shuffle.csv:
 
 shuffle.png: shuffle.csv
 	< shuffle.csv Rio -ge 'g + geom_point(aes(x=pos,y=iter,color=factor(card))) + scale_color_grey(start=1,end=0) + theme_bw()' > $@
+
+# Tasks duplicated (more than one line per task)
+project_estimation.csv:
+	curl --output project_estimation.csv --compressed "https://raw.githubusercontent.com/Derek-Jones/SiP_dataset/master/Sip-task-info.csv" 
 
 population.csv:
 	curl --output population.csv --compressed "https://datasource.kapsarc.org/explore/dataset/saudi-arabia-population-by-administrative-region-nationality-and-sex/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true"
@@ -124,6 +129,9 @@ histogram_uniform.png: random_sample.csv
 
 histogram_normal.png: random_sample.csv
 	< random_sample.csv Rio -ge 'g + geom_histogram(aes(x=d,y=..density..),colour="black",fill="white") + stat_density(aes(x=d),geom="line",colour="red",linetype="dashed") + geom_vline(aes(xintercept=mean(df$$d)),linetype="dashed",colour="green") + geom_text(aes(x=median(df$$d),y=0.5,label=paste0(mean(df$$d))),colour="green") + theme_bw()' > $@
+
+histogram.png: project_estimation.csv
+	< project_estimation.csv Rio -ge 'df$$blowup <- log(df$$HoursActual/df$$HoursEstimate); df <- df[df$$HoursEstimate > 7, ]; ggplot(data=df) + geom_histogram(data=df,aes(x=blowup,y=..density..),binwidth=0.2,colour="black",fill="white") + theme_bw()' > $@
 
 points_rugs.png: random_sample.csv
 	< random_sample.csv head -n 100 | Rio -ge 'g + geom_point(aes(x=a,y=b)) + geom_rug(aes(x=a,y=b)) + theme_bw()' > $@
