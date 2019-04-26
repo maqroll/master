@@ -1,0 +1,27 @@
+fontsize=10
+lw=1.2
+bg=#FFFFFF
+customelement=
+drawRectangle(0,0,width,height)
+//drawText("*k*", width/4, height/5, center)
+//drawText("*v*", 3*width/4, height/5, center) 
+
+drawLine(0, height/8, width, height/8)
+drawLine(0, 2*height/8, width, 2*height/8)
+drawLine(0, 3*height/8, width, 3*height/8)
+drawLine(0, 4*height/8, width, 4*height/8)
+drawLine(0, 5*height/8, width, 5*height/8)
+drawLine(0, 6*height/8, width, 6*height/8)
+drawLine(0, 7*height/8, width, 7*height/8)
+
+drawLine(width/10,0,width/10,height)
+drawLine(2*width/10,0,2*width/10,height)
+drawLine(3*width/10,0,3*width/10,height)
+drawLine(4*width/10,0,4*width/10,height)
+drawLine(5*width/10,0,5*width/10,height)
+drawLine(6*width/10,0,6*width/10,height)
+drawLine(7*width/10,0,7*width/10,height)
+drawLine(8*width/10,0,8*width/10,height)
+drawLine(9*width/10,0,9*width/10,height)
+
+drawRectangle(3*width/5,0,1*width/10,height) bg=#000000
