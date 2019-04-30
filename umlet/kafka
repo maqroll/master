@@ -1,0 +1,10 @@
+fontsize=10
+lw=1.2
+bg=#41b6c4
+customelement=
+drawLine(0, 0, width, 0)
+drawLine(0,height,width,height)
+drawLine(width,0,width,height)
+drawLine(16*width/17,0,16*width/17,height)
+drawLine(15*width/17,0,15*width/17,height)
+drawLine(14*width/17,0,14*width/17,height)
