@@ -8,3 +8,6 @@ drawLine(width,0,width,height)
 drawLine(16*width/17,0,16*width/17,height)
 drawLine(15*width/17,0,15*width/17,height)
 drawLine(14*width/17,0,14*width/17,height)
+drawLine(13*width/17,0,13*width/17,height)
+drawLine(12*width/17,0,12*width/17,height)
+
