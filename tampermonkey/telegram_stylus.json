@@ -1,0 +1,23 @@
+[
+	{
+		"enabled": true,
+		"updateUrl": null,
+		"md5Url": null,
+		"url": null,
+		"originalMd5": null,
+		"installDate": 1585849034745,
+		"name": "TELEGRAM",
+		"sections": [
+			{
+				"code": ".tg_head_split {\n    max-width: 100%;\n}\n\n\n.tg_head_logo_wrap {\n    width: 21%;\n}\n\n.im_page_wrap {\n    max-width: 100%;\n}\n\n.im_dialogs_col_wrap.noselect {\n    width: 21%;\n}\n\n.tg_head_main_wrap {\n    width: 79%;\n}\n\n.im_message_wrap.clearfix {\n    max-width: 100%;\n}\n\n.im_history_col_wrap {\n    width: 79%;\n}\n\n.im_send_panel_wrap {\n    max-width: 100%;\n}\n\n.im_send_form {\n    max-width: 100%;\n}",
+				"urls": [
+					"https://web.telegram.org/"
+				]
+			}
+		],
+		"updateDate": 1585850294697,
+		"_id": "3ec3408e-1c21-4774-a0aa-a770731998b6",
+		"_rev": 1585850294697,
+		"id": 1
+	}
+]
