@@ -77,3 +77,12 @@ de consultor porque los salarios sean mayores, sino porque las consultoras
 se presentan a si mismas como creadoras de valor, y lo hacen con mucha seguridad;
 las organizaciones públicas han acabado considerandose lo contrario.
 ```
+
+```
+En Dinamarca, por ejemplo, el gobierno elegido en 2019 reconoció que la 
+contratación generalizada de consultoras había socavado las capacidades del 
+sector público. En 2021, ya había reducido a la mitad el gasto del Estado en 
+consultores de gestión externos y establecido un organismo público responsable
+de proporcionar datos y análisis a los departamentos gubernamentales que se 
+habían vuelto dependientes de ellos.
+```
