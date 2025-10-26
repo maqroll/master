@@ -46,3 +46,19 @@ de Estocolmo, los antiguos empleados han criticado el papel de las
 consultoras en la ruina de las organizaciones.
 ```
 
+## UN GOBIERNO QUE REMA PARA PODER DIRIGIR
+
+```
+En la decada de 1960, durante el programa Apolo, el director de 
+adquisiciones de la NASA, Ernest Brackett, advirtió que la NASA 
+perdería su inteligencia si seguía externalizando; acabaría 
+<<capturada por el folletismo>>, hasta el punto de que no sabría
+con quién trabajar ni cómo redactar los pliegos de condiciones. 
+```
+
+```
+No tendríamos Internet ni GPS sin la Agencia de Proyectos de 
+Investigación Avanzados de Defensa (DARPA), una institución pública
+estadounidense que asume riesgos.
+```
+
