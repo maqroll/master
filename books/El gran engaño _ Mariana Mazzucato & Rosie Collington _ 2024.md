@@ -62,3 +62,18 @@ Investigación Avanzados de Defensa (DARPA), una institución pública
 estadounidense que asume riesgos.
 ```
 
+```
+Es fundamental garantizar que las carreras profesionales en el sector
+público atraigan a personas competentes, curiosas y con objetivos
+concretos. En muchos países, los empleados públicos no pueden acceder a
+una formación valiosa ni tienen la posibilidad de desarrollar sus 
+habilidades y conocimientos mediante la asunción de nuevos retos. Lo cual 
+tiene muchas consecuencias. Si el papel del funcionario se reduce a la mera
+gestión de los contratos con los consultores, quienes están interesados en 
+añadir valor al sector público tal vez piensen que pueden hacerlo mejor
+desde el sector de la consultoría, en el que los salarios son más altos.
+Los graduados más inteligentes no solo se sienten atraidos por la carrera
+de consultor porque los salarios sean mayores, sino porque las consultoras
+se presentan a si mismas como creadoras de valor, y lo hacen con mucha seguridad;
+las organizaciones públicas han acabado considerandose lo contrario.
+```
