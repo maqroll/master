@@ -86,3 +86,10 @@ consultores de gestión externos y establecido un organismo público responsable
 de proporcionar datos y análisis a los departamentos gubernamentales que se 
 habían vuelto dependientes de ellos.
 ```
+
+## AGRADECIMIENTOS
+
+```
+Queríamos desentrañar qué le ocurre al cerebro de una organización cuando deja de
+aprender con la práctica porque es otro el que hace el trabajo.
+```
