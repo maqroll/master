@@ -74,5 +74,19 @@ Despues de que el Tribunal Supremo de Estados Unidos prohibiera la segregación 
 
 -------------------------------------------------------------
 
+Tras la generalización de la píldora a finales de los sesenta, se dispararon las matrículas universitarias y el empleo de las mujeres, lo que les permitió independizarse más de los hombres. Hoy como entonces, las mujeres con acceso a métodos anticonceptivos eficaces van a la escuela durante más tiempo y participan en el mercado de trabajo en mayor medida que las mujeres que no lo tienen. Tienen hijos más tarde y en menor número. Sin embargo, los métodos anticonceptivos más fiables siguen estando fuera del alcance de muchas mujeres pobres y la mayoría de sus embarazos no son deseados, lo que significa que la madre hubiera preferido quedarse embarazada más tarde o no hacerlo en absoluto.
+
+---------------------------------------------------------------
+
+Podemos votar con la cartera, decidiendo dónde compramos y qué compramos. En la medida de lo posible, debemos retirar nuestro apoyo a las empresas que explotan a sus trabajadores. Para ello hay que hacer los deberes: investigar el historial de la empresa. ¿Quiero enviar un paquete? Los conductores de UPS están sindicados, pero los de FedEx no. ¿Necesito una copa? Rolling Rock y Miller tienen sindicatos. ¿Quiero un caramelo? La plantilla de Jolly Ranchers está sindicada. Los consumidores estadounidenses cada vez se fijan más en el impacto mediambiental de sus compras. Tambien deberíamos considerar su impacto sobre la pobreza.
+
+---------------------------------------------------------------
+
+[...] la segregación nos envenena la mente y el alma. Cuando las personas acomodadas viven, trabajan, juegan y celebran cultos solo junto a otras personas de su misma posición, pueden volverse insulares y olvidarse literalmente de los pobres. Eso saca lo peor de nosotros, alimenta nuestros prejuicios y propaga la decadencia moral. Comprometernos unos con otros en comunidades integradas permite reconocer nuestros puntos ciegos, descompartimentar nuestra vida y, de esta forma, familias muy por encima del umbral de la pobreza se preocupan por problemas que afectan a otras familias que están por debajo de él.
+
+---------------------------------------------------------------
+
+Si tuvieramos que reducirlo a un solo concepto, podríamos decir que sin pobreza seríamos más libres. Una nación empeñada en acabar con la pobreza es una nación verdadera y obsesivamente comprometida con la libertad.
+
 
 
